@@ -2,6 +2,8 @@
    VEEAM CUSTOM CSS
    ============================================================ */
 
+/* TABLEAUX */
+
 .audit-table {
     width: 100%;
     border-collapse: collapse;
@@ -9,7 +11,7 @@
     margin-bottom: 20px;
     overflow: hidden;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .audit-table th {
@@ -22,19 +24,39 @@
 
 .audit-table td {
     padding: 12px 14px;
-    border: 1px solid var(--border);
-    color: var(--text);
-}
-
-.audit-table tr {
-    background: var(--surface);
+    border: 1px solid #e5e5e5;
 }
 
 .audit-table tr:nth-child(even) {
-    background: var(--surface-alt);
+    background: #f8fafc;
 }
 
 .audit-table tr:hover {
-    background: rgba(0,120,212,.12);
+    background: #eef6ff;
 }
 
+/* LISTES */
+
+.section ul,
+.section ol {
+    padding-left: 25px;
+    line-height: 1.8;
+}
+
+/* EMPHASIS */
+
+.section strong {
+    color: #0078D4;
+}
+
+/* RESPONSIVE TABLE */
+
+@media (max-width: 768px) {
+
+    .audit-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+}

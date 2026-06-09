@@ -9,7 +9,7 @@
 }
 
 .audit-table th {
-    background: var(--primary);
+    background: #0f172a;
     color: white;
     padding: 12px;
     text-align: left;
@@ -17,14 +17,9 @@
 
 .audit-table td {
     padding: 12px;
-    border: 1px solid var(--border);
-    color: var(--text);
-}
-
-.audit-table tr {
-    background: var(--surface);
+    border: 1px solid #dcdcdc;
 }
 
 .audit-table tr:nth-child(even) {
-    background: var(--surface-alt);
+    background: #f8fafc;
 }
