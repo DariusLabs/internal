@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tutorial – Upgrade Veeam Backup & Replication 12.3 to 13</title>
+<link rel="stylesheet" href="../style.css">
+<script src="../copy.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Veeam Backup & Replication</h1>
+    <div class="subtitle">
+        Upgrade Veeam Backup & Replication 12.3.2.3617 to 13.0.2.229
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="section">
+        <h2>🎯 Objective</h2>
+
+        <p>
+            Upgrade an existing Veeam Backup & Replication 12.3 environment
+            to Veeam Backup & Replication 13 while preserving all existing
+            backup jobs, repositories, proxies and configuration.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>📋 Environment</h2>
+
+        <table class="audit-table">
+            <tr>
+                <th>Component</th>
+                <th>Value</th>
+            </tr>
+
+            <tr>
+                <td>Operating System</td>
+                <td>Windows Server 2022</td>
+            </tr>
+
+            <tr>
+                <td>Source Version</td>
+                <td>12.3.2.3617</td>
+            </tr>
+
+            <tr>
+                <td>Target Version</td>
+                <td>13.0.2.229</td>
+            </tr>
+
+            <tr>
+                <td>Database</td>
+                <td>PostgreSQL</td>
+            </tr>
+
+            <tr>
+                <td>License</td>
+                <td>Enterprise Essentials</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="section">
+        <h2>⚠️ Prerequisites</h2>
+
+        <ul>
+            <li>Verify all backup jobs completed successfully.</li>
+            <li>Verify Configuration Backup is enabled.</li>
+            <li>Verify Configuration Backup files exist on the repository.</li>
+            <li>Verify the license is valid.</li>
+            <li>Create a VMware snapshot.</li>
+            <li>Download the Veeam Backup & Replication 13 ISO.</li>
+        </ul>
+
+    </div>
+
+    <div class="section">
+        <h2>📦 Verify Configuration Backup</h2>
+
+        <p>
+            Open:
+        </p>
+
+        <ul>
+            <li>Menu → Configuration Backup</li>
+        </ul>
+
+        <p>
+            Verify:
+        </p>
+
+        <ul>
+            <li>Configuration Backup is enabled.</li>
+            <li>Last backup completed successfully.</li>
+            <li>The repository is accessible.</li>
+        </ul>
+
+        <p>
+            Browse the repository and confirm that .BCO files are present.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>🔑 Verify License</h2>
+
+        <p>
+            Open:
+        </p>
+
+        <ul>
+            <li>Menu → License</li>
+        </ul>
+
+        <p>
+            Verify:
+        </p>
+
+        <ul>
+            <li>License Status = Valid</li>
+            <li>Support contract still active</li>
+            <li>No license warnings</li>
+        </ul>
+
+    </div>
+
+    <div class="section">
+        <h2>💾 Verify Free Disk Space</h2>
+
+        <p>
+            Verify the system drive has sufficient free space.
+        </p>
+
+        <p>
+            During this upgrade only 6.7 GB remained available on drive C:.
+        </p>
+
+        <p>
+            The virtual disk was expanded before starting the upgrade.
+        </p>
+
+        <p>
+            The virtual disk was expanded from 80 GB to 150 GB before starting the upgrade.
+        </p>
+
+        <p>
+            This step is only required when free space is insufficient.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>📸 Create VMware Snapshot</h2>
+
+        <ol>
+            <li>Shut down the Veeam VM.</li>
+            <li>Create a VMware snapshot.</li>
+            <li>Power on the VM.</li>
+        </ol>
+
+        <p>
+            Snapshot name used: <strong>Veeam 12 to 13</strong>.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>💿 Mount Veeam 13 ISO</h2>
+
+        <ol>
+            <li>Download the ISO VeeamBackup & Replication 13 from Veeam customer portail.</li>
+            <li>Mount the ISO.</li>
+            <li>Open the mounted DVD drive.</li>
+            <li>Run Setup.exe.</li>
+        </ol>
+
+    </div>
+
+    <div class="section">
+        <h2>🚀 Start Upgrade</h2>
+
+        <ol>
+            <li>Click <strong>Upgrade Veeam Backup & Replication</strong>.</li>
+            <li>Keep the detected license.</li>
+            <li>Continue through the wizard.</li>
+        </ol>
+
+    </div>
+
+    <div class="section">
+        <h2>📦 Install Prerequisites</h2>
+
+        <p>
+            Veeam 13 requires additional Microsoft components.
+        </p>
+
+        <p>
+            The installer automatically installs:
+        </p>
+
+        <ul>
+            <li>Microsoft .NET 8 Hosting Bundle</li>
+            <li>Microsoft Visual C++ Redistributable</li>
+            <li>Microsoft Edge WebView2 Runtime</li>
+            <li>PowerShell 7</li>
+        </ul>
+
+        <p>
+            Accept installation when prompted.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>🔄 Reboot Server</h2>
+
+        <p>
+            After prerequisite installation Veeam requests a reboot.
+        </p>
+
+        <ol>
+            <li>Click Reboot.</li>
+            <li>Wait for the server to restart.</li>
+            <li>Mount the ISO again if required.</li>
+            <li>Run Setup.exe.</li>
+            <li>Resume the upgrade.</li>
+        </ol>
+
+    </div>
+
+    <div class="section">
+        <h2>⚠️ Compatibility Warnings</h2>
+
+        <p>
+            The installer may display warnings related to deprecated or discontinued features.
+        </p>
+
+        <p>
+            These warnings are informational and do not block the upgrade.
+        </p>
+
+        <ul>
+            <li>Restore Point Retention for new jobs</li>
+            <li>Reverse Incremental Backup for new jobs</li>
+            <li>Single Storage Backup Format</li>
+            <li>Cloud Connect AD Authentication</li>
+            <li>U-AIR Recovery Wizard</li>
+        </ul>
+
+        <p>
+            Continue if no unsupported operating systems are protected.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>⚙️ Upgrade Components</h2>
+
+        <p>
+            During the upgrade wizard:
+        </p>
+
+        <ul>
+            <li>Enable <strong>Update remote components automatically</strong>.</li>
+        </ul>
+
+        <p>
+            This allows Veeam to automatically update backup infrastructure components.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>⏳ Perform Upgrade</h2>
+
+        <p>
+            Click <strong>Upgrade</strong> and wait for all installation steps to complete.
+        </p>
+
+        <p>
+            Expected result:
+        </p>
+
+        <p>
+            The wizard should display the message <strong>Successfully upgraded</strong>.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>🔄 Final Reboot</h2>
+
+        <p>
+            After the upgrade completes, reboot the server when prompted.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>🔐 First Login After Upgrade</h2>
+
+        <p>
+            Launch the Veeam Console.
+        </p>
+
+        <p>
+            Select:
+        </p>
+
+        <p>
+            Select <strong>Sign in as current user</strong>.
+        </p>
+
+        <p>
+            Complete MFA authentication if required.
+        </p>
+
+    </div>
+
+    <div class="section">
+        <h2>🔍 Post-Upgrade Validation</h2>
+
+        <table class="audit-table">
+
+            <tr>
+                <th>Check</th>
+                <th>Expected Result</th>
+            </tr>
+
+            <tr>
+                <td>Version</td>
+                <td>13.0.2.229</td>
+            </tr>
+
+            <tr>
+                <td>License</td>
+                <td>Valid</td>
+            </tr>
+
+            <tr>
+                <td>Backup Proxies</td>
+                <td>Online</td>
+            </tr>
+
+            <tr>
+                <td>Backup Repositories</td>
+                <td>Online</td>
+            </tr>
+
+            <tr>
+                <td>Backup Jobs</td>
+                <td>Present</td>
+            </tr>
+
+            <tr>
+                <td>Configuration Backup</td>
+                <td>Enabled</td>
+            </tr>
+
+            <tr>
+                <td>Test Backup Job</td>
+                <td>Success</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="section">
+        <h2>🧪 Backup Validation Test</h2>
+
+        <p>
+            Run an existing backup job manually.
+        </p>
+
+        <ol>
+            <li>Right-click the backup job.</li>
+            <li>Select Start.</li>
+            <li>Do not use Active Full.</li>
+        </ol>
+
+        <p>
+            Verify the backup job starts and completes successfully.
+        </p>
+
+    </div>
+
+    <div class="section">
+    <h2>🔄 Rollback Procedure</h2>
+
+    <p>
+        Rollback is only required if the upgrade fails or Veeam becomes unusable after the upgrade.
+    </p>
+
+    <p>
+        If all post-upgrade validation tests are successful, rollback is not required.
+    </p>
+
+    <ol>
+        <li>Shut down the VM.</li>
+        <li>Open VMware Snapshot Manager.</li>
+        <li>Select the snapshot created before the upgrade.</li>
+        <li>Click Restore Snapshot.</li>
+        <li>Power on the VM.</li>
+        <li>Verify Veeam functionality.</li>
+        <li>Verify repositories are accessible.</li>
+        <li>Verify backup jobs are present.</li>
+    </ol>
+
+    <p>
+        Restore the VMware snapshot created before the upgrade.
+    </p>
+
+</div>
+
+    
+<div class="section">
+    <h2>🧹 Snapshot Cleanup</h2>
+
+    <p>
+        Keep the VMware snapshot until at least one backup job has completed successfully after the upgrade.
+    </p>
+
+    <p>
+        Once backup validation is successful, delete the VMware snapshot.
+    </p>
+
+    <ul>
+        <li>Do not keep the snapshot longer than necessary.</li>
+        <li>Deleting the snapshot automatically performs disk consolidation.</li>
+        <li>Manual consolidation is only required if VMware displays a "Consolidation Needed" warning.</li>
+    </ul>
+</div>
+
+<div class="section">
+        <h2>✅ Expected Result</h2>
+
+        <ul>
+            <li>Veeam upgraded successfully to version 13.0.2.229.</li>
+            <li>All backup jobs preserved.</li>
+            <li>All repositories accessible.</li>
+            <li>All proxies operational.</li>
+            <li>Configuration Backup preserved.</li>
+            <li>Test backup completed successfully.</li>
+        </ul>
+
+        <p>
+    Keep the VMware snapshot until at least one backup job has completed successfully after the upgrade.
+</p>
+
+<p>
+    Once backup validation is successful, delete the VMware snapshot.
+</p>
+
+<ul>
+    <li>Do not keep the snapshot longer than necessary.</li>
+    <li>Deleting the snapshot automatically performs disk consolidation.</li>
+    <li>Manual consolidation is only required if VMware displays a "Consolidation Needed" warning.</li>
+</ul>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+
+        <img src="../orbid.png"
+             alt="Orbid Logo"
+             style="height:70px;">
+
+        <span>
+            Veeam Backup & Replication 12.3 to 13 Upgrade Procedure<br>
+            © Created by Jasha Eslahi
+        </span>
+
+    </div>
+
+</footer>
+
+<script src="../copy.js"></script>
+
+</body>
+</html>

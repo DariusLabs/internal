@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – DFSR SYSVOL Recovery</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>DFSR SYSVOL Recovery Procedure</h1>
+
+    <p class="subtitle">
+        Tutorial – Active Directory Authoritative DFSR Repair
+    </p>
+
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+
+        <h2>
+            🎯 Objective
+        </h2>
+
+        <p>
+            This procedure explains how to repair a corrupted
+            <strong>SYSVOL DFS Replication (DFSR)</strong>
+            configuration on a Single Domain Controller environment.
+        </p>
+
+        <p>
+            The procedure covers:
+        </p>
+
+        <ul>
+
+            <li>DFSR diagnosis</li>
+
+            <li>SYSVOL recovery</li>
+
+            <li>NETLOGON restoration</li>
+
+            <li>DNS validation</li>
+
+            <li>NTP validation</li>
+
+            <li>File Server validation</li>
+
+            <li>Laptop authentication issues</li>
+
+        </ul>
+
+    </div>
+
+    <!-- ENVIRONMENT -->
+
+    <div class="section">
+
+        <h2>
+            🖥️ Environment
+        </h2>
+
+        <ul>
+
+            <li>Single Domain Controller</li>
+
+            <li>Windows Server 2022</li>
+
+            <li>DFSR SYSVOL Replication</li>
+
+            <li>VMware Virtual Machine</li>
+
+            <li>Active Directory Domain Services</li>
+
+        </ul>
+
+    </div>
+
+    <!-- SYMPTOMS -->
+
+    <div class="section">
+
+        <h2>
+           ⚠️ Symptoms
+        </h2>
+
+        <ul>
+
+            <li>Network drives disappearing</li>
+
+            <li>Printers requiring reconfiguration</li>
+
+            <li>Scanner shares unavailable</li>
+
+            <li>Password changes failing</li>
+
+            <li>Group Policies inconsistent</li>
+
+            <li>Authentication issues</li>
+
+            <li>Slow user logons</li>
+
+        </ul>
+
+    </div>
+
+    <!-- ROOT CAUSE -->
+
+    <div class="section">
+
+        <h2>
+            🧩 Root Cause
+        </h2>
+
+        <p>
+            An old Domain Controller was removed during a previous
+            infrastructure migration without fully cleaning DFSR metadata.
+        </p>
+
+        <p>
+            This left stale SYSVOL replication references inside
+            Active Directory and caused DFS Replication to enter
+            a protected error state.
+        </p>
+
+        <p>
+            Impact:
+        </p>
+
+        <ul>
+
+            <li>Unstable Group Policies</li>
+
+            <li>Network drive deployment failures</li>
+
+            <li>Printer deployment failures</li>
+
+            <li>Authentication inconsistencies</li>
+
+        </ul>
+
+    </div>
+
+    <!-- PREREQUISITES -->
+
+    <div class="section">
+
+        <h2>
+           📋 Prerequisites
+        </h2>
+
+        <ul>
+
+            <li>Administrator privileges</li>
+
+            <li>Console access to Domain Controller</li>
+
+            <li>Recent backup available</li>
+
+            <li>VMware Snapshot capability</li>
+
+            <li>PowerShell access</li>
+
+        </ul>
+
+    </div>
+
+    <!-- WARNING -->
+
+    <div class="section">
+
+        <h2>
+           🚨 Important Safety Measures
+        </h2>
+
+        <ul>
+
+            <li>Create a VM Snapshot</li>
+
+            <li>Backup all GPOs</li>
+
+            <li>Ensure console access</li>
+
+            <li>Perform outside business hours if possible</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 1 -->
+
+    <div class="section">
+
+        <h2>
+            🔍 Verify DFSR Replication Status
+        </h2>
+
+        <p>
+            Open Command Prompt on the Domain Controller.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">wmic</span> <span class="ps-operator">/namespace:\\root\microsoftdfs</span> <span class="ps-operator">path</span> <span class="ps-operator">dfsrreplicatedfolderinfo</span> <span class="ps-operator">get</span> <span class="ps-property">replicatedfoldername,state</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Problematic result:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL Share = 5</li>
+
+        </ul>
+
+        <p>
+            Healthy result:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL Share = 4</li>
+
+        </ul>
+
+    </div>
+
+    <!-- DFSR STATES -->
+
+    <div class="section">
+
+        <h2>
+           📊 DFSR State Reference
+        </h2>
+
+        <table class="audit-table">
+
+            <tr>
+                <th>State</th>
+                <th>Description</th>
+            </tr>
+
+            <tr>
+                <td>0</td>
+                <td>Uninitialized</td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Initial Sync</td>
+            </tr>
+
+            <tr>
+                <td>3</td>
+                <td>Auto Recovery</td>
+            </tr>
+
+            <tr>
+                <td>4</td>
+                <td>Normal</td>
+            </tr>
+
+            <tr>
+                <td>5</td>
+                <td>Error</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+        <!-- STEP 2 -->
+
+    <div class="section">
+
+        <h2>
+            🔎 Run DCDIAG
+        </h2>
+
+        <p>
+            Perform a complete Active Directory health assessment.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">dcdiag</span> <span class="ps-operator">/v</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Look for DFS Replication related errors:
+        </p>
+
+        <ul>
+
+            <li>Event ID 4012</li>
+
+            <li>Event ID 9061</li>
+
+            <li>Event ID 5002</li>
+
+            <li>Event ID 5008</li>
+
+        </ul>
+
+        <p>
+            These errors generally indicate stale SYSVOL data or references
+            to an old Domain Controller.
+        </p>
+
+    </div>
+
+    <!-- STEP 3 -->
+
+    <div class="section">
+
+        <h2>
+            ⚙️ Review DFS Replication Events
+        </h2>
+
+        <p>
+            Open Event Viewer:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    GUI
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre>Applications and Services Logs
+└ DFS Replication</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Review recent events.
+        </p>
+
+        <p>
+            Common errors found during this incident:
+        </p>
+
+        <ul>
+
+            <li>4012 – SYSVOL stale</li>
+
+            <li>9061 – Replication stopped</li>
+
+            <li>5002 – Communication failure</li>
+
+            <li>5008 – Partner connection failure</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 4 -->
+
+    <div class="section">
+
+        <h2>
+           🔎 Verify SYSVOL and NETLOGON Shares
+        </h2>
+
+        <p>
+            Verify that Active Directory shares are available.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">net</span> <span class="ps-operator">share</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Expected shares:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL</li>
+
+            <li>NETLOGON</li>
+
+        </ul>
+
+        <p>
+            If one or both are missing, SYSVOL recovery is required.
+        </p>
+
+    </div>
+
+    <!-- STEP 5 -->
+
+    <div class="section">
+
+        <h2>
+           ⚙️ Create VMware Snapshot
+        </h2>
+
+        <p>
+            Before performing any repair, create a complete VMware snapshot.
+        </p>
+
+        <ul>
+
+            <li>Snapshot Name: Before DFSR Repair</li>
+
+            <li>Include VM Memory if possible</li>
+
+            <li>Verify successful completion</li>
+
+        </ul>
+
+        <p>
+            This provides a rollback option if the repair fails.
+        </p>
+
+    </div>
+
+    <!-- STEP 6 -->
+
+    <div class="section">
+
+        <h2>
+           ⚙️ Backup All Group Policies
+        </h2>
+
+        <p>
+            Open PowerShell as Administrator.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    POWERSHELL
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">Backup-GPO</span> <span class="ps-operator">-All</span> <span class="ps-operator">-Path</span> <span class="ps-string">"C:\GPOBackup"</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Verify that all GPOs have been exported successfully.
+        </p>
+
+    </div>
+
+    <!-- STEP 7 -->
+
+    <div class="section">
+
+        <h2>
+           🔎 Verify SYSVOL Folder Structure
+        </h2>
+
+        <p>
+            Verify that SYSVOL folders exist.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">dir</span> <span class="ps-string">C:\Windows\SYSVOL</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Confirm the presence of:
+        </p>
+
+        <ul>
+
+            <li>Policies</li>
+
+            <li>Scripts</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 8 -->
+
+    <div class="section">
+
+        <h2>
+           ⚙️ Prepare Authoritative DFSR Recovery
+        </h2>
+
+        <p>
+            This procedure is intended for:
+        </p>
+
+        <ul>
+
+            <li>Single Domain Controller environments</li>
+
+            <li>State 5 DFSR failures</li>
+
+            <li>Stale SYSVOL situations</li>
+
+            <li>No remaining healthy replication partner</li>
+
+        </ul>
+
+        <p>
+            The following steps will rebuild DFSR and republish SYSVOL.
+        </p>
+
+    </div>
+
+    <!-- STEP 9 -->
+
+    <div class="section">
+
+        <h2>
+           ⚙️ Final Pre-Recovery Validation
+        </h2>
+
+        <p>
+            Before continuing, confirm:
+        </p>
+
+        <ul>
+
+            <li>VM Snapshot completed</li>
+
+            <li>GPO Backup completed</li>
+
+            <li>Administrator access available</li>
+
+            <li>Console access available</li>
+
+            <li>No production changes currently running</li>
+
+        </ul>
+
+        <p>
+            Once validated, continue with the Authoritative DFSR Recovery procedure.
+        </p>
+
+    </div>
+
+        <!-- STEP 10 -->
+
+    <div class="section">
+
+        <h2>
+            🛑 Stop DFS Replication Service
+        </h2>
+
+        <p>
+            Open an elevated Command Prompt on the Domain Controller.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">net</span> <span class="ps-operator">stop</span> <span class="ps-property">dfsr</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STEP 11 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-database"></i>
+            Reset DFSR Local State
+        </h2>
+
+        <p>
+            Open Registry Editor and browse to:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    REGISTRY
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>HKLM\SYSTEM\CurrentControlSet\Services\DFSR\Parameters\SysVols\Migrating SysVols\Local State</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Modify:
+        </p>
+
+        <ul>
+
+            <li>Local State = 0</li>
+
+        </ul>
+
+        <p>
+            This resets the DFSR SYSVOL state.
+        </p>
+
+    </div>
+
+    <!-- STEP 12 -->
+
+    <div class="section">
+
+        <h2>
+           ▶️ Start DFS Replication Service
+        </h2>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">net</span> <span class="ps-operator">start</span> <span class="ps-property">dfsr</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Wait approximately 2 to 5 minutes.
+        </p>
+
+    </div>
+
+    <!-- STEP 13 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-pen-to-square"></i>
+            Configure Authoritative Recovery
+        </h2>
+
+        <p>
+            Return to Registry Editor.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    REGISTRY
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>HKLM\SYSTEM\CurrentControlSet\Services\DFSR\Parameters\SysVols\Migrating SysVols</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Configure:
+        </p>
+
+        <ul>
+
+            <li>Local State = 3</li>
+
+            <li>Is Primary = 1</li>
+
+        </ul>
+
+        <p>
+            This forces the Domain Controller to become the authoritative SYSVOL source.
+        </p>
+
+    </div>
+
+    <!-- STEP 14 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-folder-open"></i>
+            Backup Existing SYSVOL_DFSR Data
+        </h2>
+
+        <p>
+            Navigate to:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    FILESYSTEM
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>C:\Windows\SYSVOL_DFSR</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Rename:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    FILESYSTEM
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>SYSVOL_DFSR → SYSVOL_DFSR.old</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Keep the old folder as a backup.
+        </p>
+
+    </div>
+
+    <!-- STEP 15 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-folder-plus"></i>
+            Recreate SYSVOL_DFSR Structure
+        </h2>
+
+        <p>
+            Create the following folder structure:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    FILESYSTEM
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>
+C:\Windows\SYSVOL_DFSR
+└ domain
+</pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STEP 16 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-copy"></i>
+            Restore Policies and Scripts
+        </h2>
+
+        <p>
+            Copy the content from:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    SOURCE
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>C:\Windows\SYSVOL_DFSR.old\domain</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            To:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    DESTINATION
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>C:\Windows\SYSVOL_DFSR\domain</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+
+            <li>Policies folder exists</li>
+
+            <li>Scripts folder exists</li>
+
+            <li>Permissions are preserved</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 17 -->
+
+    <div class="section">
+
+        <h2>
+            🔄 Restart DFSR and NETLOGON
+        </h2>
+
+        <p>
+            Restart DFS Replication:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>
+net stop dfsr
+net start dfsr
+</pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Restart NETLOGON:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>
+net stop netlogon
+net start netlogon
+</pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STEP 18 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-network-wired"></i>
+            Re-register Domain Controller DNS Records
+        </h2>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">nltest</span> <span class="ps-operator">/dsregdns</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            This forces Domain Controller DNS registration.
+        </p>
+
+    </div>
+
+    <!-- STEP 19 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-list-check"></i>
+            Validate DFSR Initialization
+        </h2>
+
+        <p>
+            Open Event Viewer:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    GUI
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre>
+Applications and Services Logs
+└ DFS Replication
+</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Look for:
+        </p>
+
+        <ul>
+
+            <li>Event ID 4602</li>
+
+        </ul>
+
+        <p>
+            Event ID 4602 confirms that SYSVOL has been initialized successfully.
+        </p>
+
+    </div>
+
+    <!-- STEP 20 -->
+
+    <div class="section">
+
+        <h2>
+            🔎 Verify DFSR Status
+        </h2>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">
+                    CMD
+                </span>
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">wmic</span> <span class="ps-operator">/namespace:\\root\microsoftdfs</span> <span class="ps-operator">path</span> <span class="ps-operator">dfsrreplicatedfolderinfo</span> <span class="ps-operator">get</span> <span class="ps-property">replicatedfoldername,state</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Expected result:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL Share = 4</li>
+
+        </ul>
+
+        <p>
+            State 4 confirms that DFSR is healthy.
+        </p>
+
+    </div>
+
+    <!-- POST-RECOVERY NETWORK PROFILE CHECK -->
+
+<div class="section">
+
+    <h2>
+        <i class="fa-solid fa-network-wired"></i>
+        Post-Recovery Network Profile Verification
+    </h2>
+
+    <p>
+        During a real customer incident, an additional issue was discovered after the DFSR repair.
+    </p>
+
+    <p>
+        Once SYSVOL returned to State 4 and DFSR was healthy, several laptops were still unable to:
+    </p>
+
+    <ul>
+
+        <li>Access network drives</li>
+
+        <li>Access scanner shares</li>
+
+        <li>Change Active Directory passwords</li>
+
+        <li>Authenticate correctly against the Domain Controller</li>
+
+    </ul>
+
+    <p>
+        Investigation revealed that the Domain Controller network adapter had switched to a Public network profile.
+    </p>
+
+    <p>
+        Restarting the network adapter immediately restored normal operation.
+    </p>
+
+    <div class="code-block">
+
+        <div class="code-header">
+
+            <span class="code-language">
+                POWERSHELL
+            </span>
+
+        </div>
+
+        <div class="code-content">
+
+<pre>Get-NetAdapter | Restart-NetAdapter</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <p>
+        After restarting the network adapter:
+    </p>
+
+    <ul>
+
+        <li>Network drives became accessible again</li>
+
+        <li>Scanner shares were restored</li>
+
+        <li>Password changes started working</li>
+
+        <li>User authentication returned to normal</li>
+
+    </ul>
+
+    <p>
+        This validation should always be performed after a DFSR recovery operation.
+    </p>
+
+</div>
+
+        <!-- STEP 21 -->
+
+    <div class="section">
+
+        <h2>
+           🔎 Verify SYSVOL and NETLOGON Shares
+        </h2>
+
+        <p>
+            Confirm that SYSVOL and NETLOGON have been published successfully.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">net</span> <span class="ps-operator">share</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Verify that the following shares are present:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL</li>
+
+            <li>NETLOGON</li>
+
+        </ul>
+
+        <p>
+            Missing shares indicate that SYSVOL publication is still failing.
+        </p>
+
+    </div>
+
+    <!-- STEP 22 -->
+
+    <div class="section">
+
+        <h2>
+            🧪 Validate Active Directory Health
+        </h2>
+
+        <p>
+            Run a complete Active Directory health assessment.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">dcdiag</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+
+            <li>Advertising = Passed</li>
+
+            <li>DFSREvent = Passed</li>
+
+            <li>SysVolCheck = Passed</li>
+
+            <li>NetLogons = Passed</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 23 -->
+
+    <div class="section">
+
+        <h2>
+           🌐 Validate Active Directory DNS
+        </h2>
+
+        <p>
+            Validate DNS configuration.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">dcdiag</span> <span class="ps-operator">/test:dns</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Expected result:
+        </p>
+
+        <ul>
+
+            <li>PASS for DNS tests</li>
+
+        </ul>
+
+    </div>
+
+    <!-- KNOWN ISSUE -->
+
+    <div class="section">
+
+        <h2>
+            ℹ️ Known DNS Warning
+        </h2>
+
+        <p>
+            During the customer repair, the following warning was still present:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    DCDIAG
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre>
+Error:
+Missing glue A record
+
+Server:
+pc252.froidchapelle.local
+</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            This warning does not impact:
+        </p>
+
+        <ul>
+
+            <li>SYSVOL</li>
+
+            <li>NETLOGON</li>
+
+            <li>Authentication</li>
+
+            <li>Group Policies</li>
+
+            <li>DFSR replication</li>
+
+        </ul>
+
+        <p>
+            The incident can still be considered resolved if all other tests are successful.
+        </p>
+
+    </div>
+
+    <!-- STEP 24 -->
+
+    <div class="section">
+
+        <h2>
+           🕒 Validate Time Synchronization
+        </h2>
+
+        <p>
+            Verify Windows Time configuration.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">w32tm</span> <span class="ps-operator">/query</span> <span class="ps-property">/status</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Example of a healthy result:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    RESULT
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre>
+Source : be.pool.ntp.org
+Leap Indicator : No warning
+</pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STEP 25 -->
+
+    <div class="section">
+
+        <h2>
+            🔐 Validate File Server Trust Relationship
+        </h2>
+
+        <p>
+            Execute the following command on the File Server.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">nltest</span> <span class="ps-operator">/sc_verify:FROIDCHAPELLE.LOCAL</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Expected result:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    RESULT
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre>
+Trusted DC Name \\FC-VDC1.FROIDCHAPELLE.LOCAL
+
+Trusted DC Connection Status = 0x0
+
+Trust Verification Status = 0x0
+
+NERR_Success
+</pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- STEP 26 -->
+
+    <div class="section">
+
+        <h2>
+           🔃 Refresh Group Policies
+        </h2>
+
+        <p>
+            Execute on the File Server.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre><span class="ps-command">gpupdate</span> <span class="ps-operator">/force</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p>
+            Expected result:
+        </p>
+
+        <ul>
+
+            <li>Computer Policy update completed successfully</li>
+
+            <li>User Policy update completed successfully</li>
+
+        </ul>
+
+        <p>
+            An MDM warning may appear and can generally be ignored if the server is not managed by Intune.
+        </p>
+
+    </div>
+
+    <!-- STEP 27 -->
+
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-file-waveform"></i>
+            Validate DFSR Event Logs
+        </h2>
+
+        <p>
+            Open DFS Replication logs again.
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    GUI
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+<pre>
+Applications and Services Logs
+└ DFS Replication
+</pre>
+
+            </div>
+
+        </div>
+
+        <p>
+            Confirm that no new critical events are generated.
+        </p>
+
+        <p>
+            The following events should no longer appear:
+        </p>
+
+        <ul>
+
+            <li>4012</li>
+
+            <li>5002</li>
+
+            <li>5008</li>
+
+            <li>9061</li>
+
+        </ul>
+
+    </div>
+
+    <!-- STEP 28 -->
+
+    <div class="section">
+
+        <h2>
+            🏛️ Domain Controller Validation Summary
+        </h2>
+
+        <ul>
+
+            <li>DFSR State = 4</li>
+
+            <li>SYSVOL Share Published</li>
+
+            <li>NETLOGON Share Published</li>
+
+            <li>DCDIAG Successful</li>
+
+            <li>DNS Operational</li>
+
+            <li>NTP Operational</li>
+
+            <li>No DFSR Critical Events</li>
+
+        </ul>
+
+        <p>
+            If all items above are validated, the Domain Controller can be considered healthy.
+        </p>
+
+    </div>
+
+        <!-- POST RECOVERY CLIENT VALIDATION -->
+
+<div class="section">
+
+    <h2>
+        <i class="fa-solid fa-laptop"></i>
+        Client Workstation Validation
+    </h2>
+
+    <p>
+        After DFSR recovery and Domain Controller network adapter restart,
+        most workstations should automatically recover.
+    </p>
+
+    <p>
+        If some users still experience issues, perform the following checks
+        on the affected workstation.
+    </p>
+
+    <p>
+        Common symptoms:
+    </p>
+
+    <ul>
+
+        <li>Network drives unavailable</li>
+
+        <li>Scanner shares inaccessible</li>
+
+        <li>Password change failures</li>
+
+        <li>Authentication issues</li>
+
+        <li>Missing printers</li>
+
+    </ul>
+
+    <h3>Step 1 - Verify Logon Server</h3>
+
+    <div class="code-block">
+
+        <div class="code-header">
+            <span class="code-language">
+                CMD
+            </span>
+        </div>
+
+        <div class="code-content">
+
+<pre>echo %logonserver%</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <p>
+        Expected result:
+    </p>
+
+<pre>
+\\FC-VDC1
+</pre>
+
+    <h3>Step 2 - Verify Domain Controller Discovery</h3>
+
+    <div class="code-block">
+
+        <div class="code-header">
+            <span class="code-language">
+                CMD
+            </span>
+        </div>
+
+        <div class="code-content">
+
+<pre>nltest /dsgetdc:FROIDCHAPELLE.LOCAL</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <h3>Step 3 - Verify Network Configuration</h3>
+
+    <div class="code-block">
+
+        <div class="code-header">
+            <span class="code-language">
+                CMD
+            </span>
+        </div>
+
+        <div class="code-content">
+
+<pre>ipconfig /all</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <p>
+        Verify that the workstation is using the Active Directory DNS server.
+    </p>
+
+    <h3>Step 4 - Disable IPv6 (If Required)</h3>
+
+    <p>
+        If IPv6 DNS addresses are detected and authentication problems persist,
+        disable IPv6 on the workstation network adapter.
+    </p>
+
+    <h3>Step 5 - Flush DNS Cache</h3>
+
+    <div class="code-block">
+
+        <div class="code-header">
+            <span class="code-language">
+                CMD
+            </span>
+        </div>
+
+        <div class="code-content">
+
+<pre>
+ipconfig /flushdns
+ipconfig /release
+ipconfig /renew
+</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <h3>Step 6 - Refresh Group Policies</h3>
+
+    <div class="code-block">
+
+        <div class="code-header">
+            <span class="code-language">
+                CMD
+            </span>
+        </div>
+
+        <div class="code-content">
+
+<pre>gpupdate /force</pre>
+
+            <button class="copy-btn" onclick="copyCode(this)">
+                Copy
+            </button>
+
+        </div>
+
+    </div>
+
+    <h3>Step 7 - Validate User Access</h3>
+
+    <ul>
+
+        <li>Password changes working</li>
+
+        <li>Network drives accessible</li>
+
+        <li>Printers available</li>
+
+        <li>Scanner shares accessible</li>
+
+        <li>User authentication successful</li>
+
+    </ul>
+
+</div>
+
+    <!-- FINAL CHECKLIST -->
+
+    <div class="section">
+
+        <h2>
+            ☑️ Final Validation Checklist
+        </h2>
+
+        <ul>
+
+            <li>✅ DFSR State = 4</li>
+
+            <li>✅ SYSVOL Share Published</li>
+
+            <li>✅ NETLOGON Share Published</li>
+
+            <li>✅ DFSR Event ID 4602 Present</li>
+
+            <li>✅ No DFSR Errors 4012</li>
+
+            <li>✅ No DFSR Errors 5002</li>
+
+            <li>✅ No DFSR Errors 5008</li>
+
+            <li>✅ DCDIAG Successful</li>
+
+            <li>✅ DNS Operational</li>
+
+            <li>✅ NTP Operational</li>
+
+            <li>✅ File Server Trust Verified</li>
+
+            <li>✅ GPUpdate Successful</li>
+
+            <li>✅ Password Changes Working</li>
+
+            <li>✅ Scanner Accessible</li>
+
+            <li>✅ Network Drives Accessible</li>
+
+            <li>✅ User Authentication Operational</li>
+
+        </ul>
+
+    </div>
+
+    <!-- CONCLUSION -->
+
+    <div class="section">
+
+        <h2>
+            🎉 Conclusion
+        </h2>
+
+        <p>
+            The incident was caused by an incomplete Active Directory migration where an old Domain Controller had been removed without fully cleaning DFSR metadata.
+        </p>
+
+        <p>
+            This resulted in stale SYSVOL replication information and caused DFS Replication to enter a protected error state.
+        </p>
+
+        <p>
+            An authoritative DFSR recovery was performed, SYSVOL was rebuilt, NETLOGON was republished and Active Directory functionality was restored.
+        </p>
+
+        <p>
+            Additional workstation issues were traced to IPv6 DNS configuration and were resolved by disabling IPv6 on affected laptops.
+        </p>
+
+        <p>
+            During this incident, an additional issue was identified after the DFSR repair. The Domain Controller network adapter switched to a Public network profile, preventing some workstations from accessing network resources correctly. Restarting the network adapter restored normal operation.
+        </p>
+
+        <p>
+            The environment was validated successfully and all critical services were restored.
+        </p>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+
+        <img src="../orbid.png"
+             alt="Orbid Logo"
+             style="height:70px;">
+
+        <span>
+            DFSR SYSVOL Recovery Procedure<br>
+            © Created by Jasha Eslahi
+        </span>
+
+    </div>
+
+</footer>
+
+<script src="../copy.js"></script>
+
+</body>
+</html>
