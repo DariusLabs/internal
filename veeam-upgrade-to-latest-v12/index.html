@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tutorial – Upgrade Veeam Backup & Replication to Latest Version 12</title>
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="custom.css">
+<script src="../copy.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Veeam Backup & Replication</h1>
+    <div class="subtitle">
+        Upgrade Veeam Backup & Replication to Latest Version 12
+    </div>
+</header>
+
+<div class="container">
+
+```
+<div class="section">
+    <h2>🎯 Objective</h2>
+
+    <p>
+        Upgrade an existing Veeam Backup & Replication 12 environment to the latest available Version 12 release before upgrading to Version 13.
+    </p>
+
+    <p>
+        This procedure preserves all existing backup jobs, repositories, proxies, credentials and configuration.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>📋 Environment</h2>
+
+    <table class="audit-table">
+        <tr>
+            <th>Component</th>
+            <th>Value</th>
+        </tr>
+
+        <tr>
+            <td>Operating System</td>
+            <td>Windows Server</td>
+        </tr>
+
+        <tr>
+            <td>Source Version</td>
+            <td>Any Version 12 Build</td>
+        </tr>
+
+        <tr>
+            <td>Target Version</td>
+            <td>Latest Available Version 12 Release</td>
+        </tr>
+
+        <tr>
+            <td>Database</td>
+            <td>PostgreSQL or Microsoft SQL Server</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div class="section">
+    <h2>📌 Verify Current Version</h2>
+
+    <p>
+        Open:
+    </p>
+
+    <ul>
+        <li>Menu → Help → About</li>
+    </ul>
+
+    <p>
+        Verify the currently installed Veeam Backup & Replication build number.
+    </p>
+
+    <p>
+        Record the version before starting the upgrade.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>⚠️ Prerequisites</h2>
+
+    <ul>
+        <li>Verify all backup jobs completed successfully.</li>
+        <li>Verify no backup, backup copy, tape or configuration backup jobs are running.</li>
+        <li>Verify Configuration Backup is enabled.</li>
+        <li>Verify Configuration Backup files exist on the repository.</li>
+        <li>Verify the encryption password used by Configuration Backup is present in Password Manager.</li>
+        <li>Verify all backup repositories are online and accessible.</li>
+        <li>Verify all backup proxies are online.</li>
+        <li>Verify the license is valid.</li>
+        <li>Verify sufficient free disk space exists on the system drive.</li>
+        <li>Create a VMware snapshot.</li>
+        <li>Download the latest available Version 12 ISO.</li>
+    </ul>
+
+</div>
+
+<div class="section">
+    <h2>📦 Verify Configuration Backup</h2>
+
+    <ul>
+        <li>Open Menu → Configuration Backup.</li>
+        <li>Verify Configuration Backup is enabled.</li>
+        <li>Verify the last backup completed successfully.</li>
+        <li>Verify the repository is accessible.</li>
+    </ul>
+
+    <p>
+        Browse the repository and verify that .BCO files are present.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🔐 Verify Encryption Keys</h2>
+
+    <ul>
+        <li>Open Menu → Manage Passwords.</li>
+        <li>Verify the encryption password used by Configuration Backup exists.</li>
+        <li>Verify the encryption password is currently in use.</li>
+    </ul>
+
+</div>
+
+<div class="section">
+    <h2>🔑 Verify License</h2>
+
+    <ul>
+        <li>Verify License Status = Valid.</li>
+        <li>Verify Support Contract is active.</li>
+        <li>Verify no license warnings are present.</li>
+    </ul>
+
+</div>
+
+<div class="section">
+    <h2>💾 Verify Free Disk Space</h2>
+
+    <p>
+        Verify sufficient free space exists on the system drive.
+    </p>
+
+    <p>
+        A minimum of 40 GB of available free space is recommended before starting the upgrade.
+    </p>
+
+    <p>
+        Expand the system volume if necessary.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>📸 Create VMware Snapshot</h2>
+
+    <ol>
+        <li>Verify no Veeam jobs are running.</li>
+        <li>Create a VMware snapshot.</li>
+        <li>Verify the snapshot completed successfully.</li>
+    </ol>
+
+</div>
+
+<div class="section">
+    <h2>💿 Download Latest Version 12 ISO</h2>
+
+    <ol>
+        <li>Log in to the Veeam Customer Portal.</li>
+        <li>Open Products.</li>
+        <li>Select Veeam Backup & Replication.</li>
+        <li>Download the latest available Version 12 ISO.</li>
+    </ol>
+
+    <p>
+        Do not install Version 13 as part of this procedure.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🚀 Start Upgrade</h2>
+
+    <ol>
+        <li>Mount the ISO.</li>
+        <li>Run Setup.exe.</li>
+        <li>Select Upgrade Veeam Backup & Replication.</li>
+        <li>Keep the existing license.</li>
+        <li>Continue through the wizard.</li>
+    </ol>
+
+</div>
+
+<div class="section">
+    <h2>📦 Install Prerequisites</h2>
+
+    <p>
+        Accept installation of all required prerequisites if prompted.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🔄 Reboot Server</h2>
+
+    <p>
+        Reboot the server if requested by the installer.
+    </p>
+
+    <p>
+        Re-launch Setup.exe after reboot and resume the upgrade.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>⚙️ Upgrade Components</h2>
+
+    <ul>
+        <li>Enable Update remote components automatically.</li>
+    </ul>
+
+    <p>
+        This updates backup infrastructure components automatically.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>⏳ Perform Upgrade</h2>
+
+    <p>
+        Click Upgrade and wait for the installation to complete.
+    </p>
+
+    <p>
+        Verify the installer reports a successful upgrade.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🔄 Final Reboot</h2>
+
+    <p>
+        Reboot the server if requested.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🔐 First Login After Upgrade</h2>
+
+    <ul>
+        <li>Launch the Veeam Console.</li>
+        <li>Sign in using the current user.</li>
+        <li>Complete MFA authentication if required.</li>
+    </ul>
+
+</div>
+
+<div class="section">
+    <h2>🔍 Post-Upgrade Validation</h2>
+
+    <table class="audit-table">
+
+        <tr>
+            <th>Check</th>
+            <th>Expected Result</th>
+        </tr>
+
+        <tr>
+            <td>Version</td>
+            <td>Latest Version 12 Build</td>
+        </tr>
+
+        <tr>
+            <td>License</td>
+            <td>Valid</td>
+        </tr>
+
+        <tr>
+            <td>Veeam Services</td>
+            <td>Running</td>
+        </tr>
+
+        <tr>
+            <td>Backup Proxies</td>
+            <td>Online</td>
+        </tr>
+
+        <tr>
+            <td>Backup Repositories</td>
+            <td>Online</td>
+        </tr>
+
+        <tr>
+            <td>Remote Components</td>
+            <td>Updated</td>
+        </tr>
+
+        <tr>
+            <td>Backup Jobs</td>
+            <td>Present</td>
+        </tr>
+
+        <tr>
+            <td>Configuration Backup</td>
+            <td>Enabled</td>
+        </tr>
+
+        <tr>
+            <td>Configuration Backup Manual Run</td>
+            <td>Success</td>
+        </tr>
+
+        <tr>
+            <td>Repository Rescan</td>
+            <td>Success</td>
+        </tr>
+
+        <tr>
+            <td>Test Backup Job</td>
+            <td>Success</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div class="section">
+    <h2>🧪 Backup Validation Test</h2>
+
+    <ol>
+        <li>Right-click an existing backup job.</li>
+        <li>Select Start.</li>
+        <li>Do not use Active Full.</li>
+    </ol>
+
+    <p>
+        Verify the backup completes successfully.
+    </p>
+
+    <p>
+        Run a manual Configuration Backup.
+    </p>
+
+    <p>
+        Perform a repository rescan and verify no errors are reported.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>🔄 Rollback Procedure</h2>
+
+    <ol>
+        <li>Shut down the VM.</li>
+        <li>Open VMware Snapshot Manager.</li>
+        <li>Select the pre-upgrade snapshot.</li>
+        <li>Restore the snapshot.</li>
+        <li>Power on the VM.</li>
+        <li>Verify Veeam functionality.</li>
+    </ol>
+
+</div>
+
+<div class="section">
+    <h2>🧹 Snapshot Cleanup</h2>
+
+    <p>
+        Keep the VMware snapshot until at least one backup job has completed successfully.
+    </p>
+
+    <p>
+        Delete the snapshot after validation is completed.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>✅ Expected Result</h2>
+
+    <ul>
+        <li>Veeam upgraded successfully to the latest Version 12 release.</li>
+        <li>All backup jobs preserved.</li>
+        <li>All repositories accessible.</li>
+        <li>All proxies operational.</li>
+        <li>Configuration Backup preserved.</li>
+        <li>Test backup completed successfully.</li>
+    </ul>
+
+</div>
+```
+
+</div>
+
+<footer class="footer-orbid">
+
+```
+<div class="footer-content">
+
+    <img src="../dariuslabs.png"
+         class="footer-logo"
+         alt="ORBID">
+
+    <div class="footer-right">
+
+        <div class="footer-name">
+            <strong>Eslahi Jasha</strong>
+        </div>
+
+        <div>System Engineer - IT</div>
+
+    </div>
+
+</div>
+```
+
+</footer>
+
+<script src="../theme.js"></script>
+
+<script src="../copy.js"></script>
+
+</body>
+</html>
