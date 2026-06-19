@@ -88,7 +88,7 @@
         Verify the currently installed build number.
     </p>
 
-    <img src="assets/veeam-current-version.png"
+    <img src="assets/veeam-current-version.webp"
          class="tutorial-image"
          alt="Current Veeam Version">
 
@@ -151,7 +151,7 @@
             <li>The repository is accessible.</li>
         </ul>
 
-        <img src="assets/configuration-backup-settings.png"
+        <img src="assets/configuration-backup-settings.webp"
      class="tutorial-image"
      alt="Configuration Backup Settings">
 
@@ -159,7 +159,7 @@
             Browse the repository and confirm that .BCO files are present.
         </p>
 
-        <img src="assets/configuration-backup-bco-files.png"
+        <img src="assets/configuration-backup-bco-files.webp"
      class="tutorial-image"
      alt="Configuration Backup Files">
 
@@ -186,7 +186,7 @@
         <li>The password is currently in use by backup jobs or Configuration Backup.</li>
     </ul>
 
-    <img src="assets/encryption-passwords.png"
+    <img src="assets/encryption-passwords.webp"
      class="tutorial-image"
      alt="Encryption Passwords">
 
@@ -213,7 +213,7 @@
             <li>No license warnings</li>
         </ul>
 
-        <img src="assets/license-information.png"
+        <img src="assets/license-information.webp"
      class="tutorial-image"
      alt="License Information">
 
@@ -320,11 +320,57 @@
             <li>Continue through the wizard.</li>
         </ol>
 
-        <img src="assets/veeam-v13-upgrade-wizard.png"
+        <img src="assets/veeam-v13-upgrade-wizard.webp"
      class="tutorial-image"
      alt="Veeam V13 Upgrade Wizard">
 
     </div>
+
+    <div class="section">
+    <h2>📄 License Verification</h2>
+
+    <p>
+        During the upgrade wizard, Veeam displays the currently installed license.
+    </p>
+
+    <p>
+        Verify that the existing license is detected correctly and click <strong>Next</strong>.
+    </p>
+
+    <img src="assets/veeam13-license-screen.webp"
+         alt="Veeam 13 License Verification"
+         class="tutorial-image">
+
+    <p>
+        Leave the default options enabled unless your organization's licensing requirements specify otherwise.
+    </p>
+
+</div>
+
+<div class="section">
+    <h2>⚠️ Compatibility Check</h2>
+
+    <p>
+        Before the upgrade starts, Veeam performs a compatibility check of the existing configuration.
+    </p>
+
+    <p>
+        Review any warnings displayed by the wizard.
+    </p>
+
+    <img src="assets/veeam13-compatibility-check.webp"
+         alt="Veeam 13 Compatibility Check"
+         class="tutorial-image">
+
+    <p>
+        If a warning about <strong>Application-aware image processing</strong> is displayed, verify that Guest Processing is not enabled on your backup jobs before continuing.
+    </p>
+
+    <p>
+        Once verified, click <strong>Next</strong>.
+    </p>
+
+</div>
 
     <div class="section">
         <h2>📦 Install Prerequisites</h2>
@@ -357,7 +403,7 @@
         During prerequisite installation, Veeam may require a server reboot before the upgrade can continue.
     </p>
 
-    <img src="assets/prerequisites-reboot-required.png"
+    <img src="assets/prerequisites-reboot-required.webp"
          class="tutorial-image"
          alt="Prerequisites Reboot Required">
 
@@ -376,46 +422,25 @@
 </div>
 
     <div class="section">
-        <h2>⚠️ Compatibility Warnings</h2>
+    <h2>⚙️ Upgrade Components</h2>
 
-        <p>
-            The installer may display warnings related to deprecated or discontinued features.
-        </p>
+    <p>
+        Review the components detected by the upgrade wizard.
+    </p>
 
-        <p>
-            These warnings are informational and do not block the upgrade.
-        </p>
+    <img src="assets/veeam13-upgrade-summary.webp"
+         class="tutorial-image"
+         alt="Veeam 13 Upgrade Summary">
 
-        <ul>
-            <li>Restore Point Retention for new jobs</li>
-            <li>Reverse Incremental Backup for new jobs</li>
-            <li>Single Storage Backup Format</li>
-            <li>Cloud Connect AD Authentication</li>
-            <li>U-AIR Recovery Wizard</li>
-        </ul>
+    <p>
+        Enable <strong>Update remote components automatically</strong>.
+    </p>
 
-        <p>
-            Continue if no unsupported operating systems are protected.
-        </p>
+    <p>
+        This allows Veeam to automatically update backup infrastructure components during the upgrade.
+    </p>
 
-    </div>
-
-    <div class="section">
-        <h2>⚙️ Upgrade Components</h2>
-
-        <p>
-            During the upgrade wizard:
-        </p>
-
-        <ul>
-            <li>Enable <strong>Update remote components automatically</strong>.</li>
-        </ul>
-
-        <p>
-            This allows Veeam to automatically update backup infrastructure components.
-        </p>
-
-    </div>
+</div>
 
     <div class="section">
         <h2>⏳ Perform Upgrade</h2>
@@ -432,6 +457,10 @@
             The wizard should display the message <strong>Successfully upgraded</strong>.
         </p>
 
+        <img src="assets/veeam13-upgrade-success.webp"
+     class="tutorial-image"
+     alt="Veeam 13 Upgrade Success">
+
     </div>
 
     <div class="section">
@@ -444,32 +473,56 @@
     </div>
 
     <div class="section">
-        <h2>🔐 First Login After Upgrade</h2>
+    <h2>🔗 Connect to the Backup Server</h2>
 
-        <p>
-            Launch the Veeam Console.
-        </p>
+    <p>
+        After the upgrade is completed, launch the Veeam Backup & Replication console.
+    </p>
 
-        <p>
-            Select:
-        </p>
+    <p>
+        Connect to the local backup server.
+    </p>
 
-        <p>
-            Select <strong>Sign in as current user</strong>.
-        </p>
+    <img src="assets/veeam13-connect-server.webp"
+         class="tutorial-image"
+         alt="Connect to Backup Server">
 
-        <p>
-            Complete MFA authentication if required.
-        </p>
+    <p>
+        If an untrusted certificate warning is displayed, review the certificate information and continue.
+    </p>
 
-        <img src="assets/veeam-console-login.png"
-     class="tutorial-image"
-     alt="Veeam Console Login">
+    <img src="assets/veeam13-untrusted-certificate.webp"
+         class="tutorial-image"
+         alt="Untrusted Certificate Warning">
 
-    </div>
+    <p>
+        Select <strong>Sign in as current user</strong>.
+    </p>
+
+    <img src="assets/veeam13-sign-in-current-user.webp"
+         class="tutorial-image"
+         alt="Sign In As Current User">
+
+    <p>
+        Complete MFA authentication if required.
+    </p>
+
+    <img src="assets/veeam-console-login.webp"
+         class="tutorial-image"
+         alt="Veeam Console Login">
+
+</div>
 
     <div class="section">
         <h2>🔍 Post-Upgrade Validation</h2>
+
+        <p>
+    Verify that the Veeam Backup & Replication console opens successfully after authentication.
+</p>
+
+<img src="assets/veeam13-console-after-upgrade.webp"
+     class="tutorial-image"
+     alt="Veeam 13 Console">
 
         <table class="audit-table">
 
@@ -592,6 +645,8 @@
 
 </div>
 
+
+
     
 <div class="section">
     <h2>🧹 Snapshot Cleanup</h2>
@@ -623,21 +678,48 @@
             <li>Test backup completed successfully.</li>
         </ul>
 
-        <p>
-    Keep the VMware snapshot until at least one backup job has completed successfully after the upgrade.
-</p>
-
-<p>
-    Once backup validation is successful, delete the VMware snapshot.
-</p>
-
-<ul>
-    <li>Do not keep the snapshot longer than necessary.</li>
-    <li>Deleting the snapshot automatically performs disk consolidation.</li>
-    <li>Manual consolidation is only required if VMware displays a "Consolidation Needed" warning.</li>
-</ul>
-
     </div>
+
+    <div class="section">
+    <h2>❓ FAQ – Application-aware Image Processing Warning</h2>
+
+    <p>
+        During the upgrade to Veeam Backup & Replication 13, the compatibility check may display the following warning:
+    </p>
+
+    <img src="assets/veeam13-compatibility-warning.webp"
+         class="tutorial-image"
+         alt="Application-aware Image Processing Warning">
+
+    <p>
+        This warning indicates that one or more backup jobs may still reference legacy Guest Processing settings that are no longer available in Veeam 13.
+    </p>
+
+    <h3>Verification</h3>
+
+    <p>
+        Open each backup job and review the Guest Processing settings.
+    </p>
+
+    <img src="assets/veeam13-guest-processing-check.webp"
+         class="tutorial-image"
+         alt="Guest Processing Configuration">
+
+    <p>
+        Verify that <strong>Enable application-aware processing</strong> is disabled if the feature is not required.
+    </p>
+
+    <h3>Resolution</h3>
+
+    <p>
+        If Application-Aware Processing is not used in the environment, disable the option and rerun the compatibility check.
+    </p>
+
+    <p>
+        In some environments, the warning may still be displayed even though the option is already disabled. In this case, the warning is informational and the upgrade can continue.
+    </p>
+
+</div>
 
 </div>
 
@@ -645,7 +727,7 @@
 
     <div class="footer-content">
 
-        <img src="../dariuslabs.png"
+        <img src="../dariuslabs.webp"
              class="footer-logo"
              alt="ORBID">
 
