@@ -70,18 +70,25 @@
     </div>
 
     <div class="section">
-        <h2>⚠️ Prerequisites</h2>
+    <h2>⚠️ Prerequisites</h2>
 
-        <ul>
-            <li>Verify all backup jobs completed successfully.</li>
-            <li>Verify Configuration Backup is enabled.</li>
-            <li>Verify Configuration Backup files exist on the repository.</li>
-            <li>Verify the license is valid.</li>
-            <li>Create a VMware snapshot.</li>
-            <li>Download the Veeam Backup & Replication 13 ISO.</li>
-        </ul>
+    <ul>
+        <li>Verify all backup jobs completed successfully.</li>
+        <li>Verify no backup, backup copy, tape or configuration backup jobs are running.</li>
+        <li>Verify Configuration Backup is enabled.</li>
+        <li>Verify Configuration Backup files exist on the repository.</li>
+        <li>Verify the encryption password used by Configuration Backup is present in Password Manager.</li>
+        <li>Verify all backup repositories are online and accessible.</li>
+        <li>Verify all backup proxies are online.</li>
+        <li>Verify the license is valid.</li>
+        <li>Verify the VMware version is supported by Veeam 13.</li>
+        <li>Verify protected Windows and Linux operating systems are supported by Veeam 13.</li>
+        <li>Verify sufficient free disk space exists on the system drive.</li>
+        <li>Create a VMware snapshot.</li>
+        <li>Download the Veeam Backup & Replication 13 ISO.</li>
+    </ul>
 
-    </div>
+</div>
 
     <div class="section">
         <h2>📦 Verify Configuration Backup</h2>
@@ -111,6 +118,29 @@
     </div>
 
     <div class="section">
+    <h2>🔐 Verify Encryption Keys</h2>
+
+    <p>
+        Open:
+    </p>
+
+    <ul>
+        <li>Menu → Manage Passwords</li>
+    </ul>
+
+    <p>
+        Verify:
+    </p>
+
+    <ul>
+        <li>The encryption password used by Configuration Backup exists.</li>
+        <li>The encryption password is not missing.</li>
+        <li>The password is currently in use by backup jobs or Configuration Backup.</li>
+    </ul>
+
+</div>
+
+    <div class="section">
         <h2>🔑 Verify License</h2>
 
         <p>
@@ -134,10 +164,39 @@
     </div>
 
     <div class="section">
+    <h2>🖥️ Verify Platform Compatibility</h2>
+
+    <p>
+        Verify the virtualization platform and protected operating systems are supported by Veeam Backup & Replication 13.
+    </p>
+
+    <p>
+        Verify:
+    </p>
+
+    <ul>
+        <li>VMware ESXi version is supported.</li>
+        <li>vCenter Server version is supported.</li>
+        <li>Protected Windows Server versions are supported.</li>
+        <li>Protected Linux distributions are supported.</li>
+        <li>No legacy or end-of-life operating systems are protected.</li>
+    </ul>
+
+    <p>
+        Review the official Veeam System Requirements documentation if necessary.
+    </p>
+
+</div>
+
+    <div class="section">
     <h2>💾 Verify Free Disk Space</h2>
 
     <p>
         Verify that the system drive has sufficient free space before starting the upgrade.
+    </p>
+
+    <p>
+        Verify at least 40 GB of free space is available on the system drive before starting the upgrade.
     </p>
 
     <p>
@@ -159,19 +218,19 @@
 </div>
 
     <div class="section">
-        <h2>📸 Create VMware Snapshot</h2>
+    <h2>📸 Create VMware Snapshot</h2>
 
-        <ol>
-            <li>Shut down the Veeam VM.</li>
-            <li>Create a VMware snapshot.</li>
-            <li>Power on the VM.</li>
-        </ol>
+    <ol>
+        <li>Verify no Veeam jobs are running.</li>
+        <li>Create a VMware snapshot.</li>
+        <li>Verify the snapshot completed successfully.</li>
+    </ol>
 
-        <p>
-            Snapshot name used: <strong>Veeam 12 to 13</strong>.
-        </p>
+    <p>
+        Snapshot name used: <strong>Veeam 12 to 13</strong>.
+    </p>
 
-    </div>
+</div>
 
     <div class="section">
         <h2>💿 Mount Veeam 13 ISO</h2>
@@ -331,68 +390,96 @@
 
         <table class="audit-table">
 
-            <tr>
-                <th>Check</th>
-                <th>Expected Result</th>
-            </tr>
+    <tr>
+        <th>Check</th>
+        <th>Expected Result</th>
+    </tr>
 
-            <tr>
-                <td>Version</td>
-                <td>13.0.2.229</td>
-            </tr>
+    <tr>
+        <td>Version</td>
+        <td>13.0.2.229</td>
+    </tr>
 
-            <tr>
-                <td>License</td>
-                <td>Valid</td>
-            </tr>
+    <tr>
+        <td>License</td>
+        <td>Valid</td>
+    </tr>
 
-            <tr>
-                <td>Backup Proxies</td>
-                <td>Online</td>
-            </tr>
+    <tr>
+        <td>Veeam Services</td>
+        <td>Running</td>
+    </tr>
 
-            <tr>
-                <td>Backup Repositories</td>
-                <td>Online</td>
-            </tr>
+    <tr>
+        <td>Backup Proxies</td>
+        <td>Online</td>
+    </tr>
 
-            <tr>
-                <td>Backup Jobs</td>
-                <td>Present</td>
-            </tr>
+    <tr>
+        <td>Backup Repositories</td>
+        <td>Online</td>
+    </tr>
 
-            <tr>
-                <td>Configuration Backup</td>
-                <td>Enabled</td>
-            </tr>
+    <tr>
+        <td>Remote Components</td>
+        <td>Updated</td>
+    </tr>
 
-            <tr>
-                <td>Test Backup Job</td>
-                <td>Success</td>
-            </tr>
+    <tr>
+        <td>Backup Jobs</td>
+        <td>Present</td>
+    </tr>
 
-        </table>
+    <tr>
+        <td>Configuration Backup</td>
+        <td>Enabled</td>
+    </tr>
+
+    <tr>
+        <td>Configuration Backup Manual Run</td>
+        <td>Success</td>
+    </tr>
+
+    <tr>
+        <td>Repository Rescan</td>
+        <td>Success</td>
+    </tr>
+
+    <tr>
+        <td>Test Backup Job</td>
+        <td>Success</td>
+    </tr>
+
+</table>
 
     </div>
 
     <div class="section">
-        <h2>🧪 Backup Validation Test</h2>
+    <h2>🧪 Backup Validation Test</h2>
 
-        <p>
-            Run an existing backup job manually.
-        </p>
+    <p>
+        Run an existing backup job manually.
+    </p>
 
-        <ol>
-            <li>Right-click the backup job.</li>
-            <li>Select Start.</li>
-            <li>Do not use Active Full.</li>
-        </ol>
+    <ol>
+        <li>Right-click the backup job.</li>
+        <li>Select Start.</li>
+        <li>Do not use Active Full.</li>
+    </ol>
 
-        <p>
-            Verify the backup job starts and completes successfully.
-        </p>
+    <p>
+        Verify the backup job starts and completes successfully.
+    </p>
 
-    </div>
+    <p>
+        Run a manual Configuration Backup after the upgrade and verify it completes successfully.
+    </p>
+
+    <p>
+        Perform a repository rescan and verify no errors are reported.
+    </p>
+
+</div>
 
     <div class="section">
     <h2>🔄 Rollback Procedure</h2>
