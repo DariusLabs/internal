@@ -1041,3 +1041,84 @@ input:checked + .chk {
     }
 
 }
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+
+.faq-item{
+    background:#ffffff;
+    border-radius:12px;
+    margin-bottom:15px;
+    overflow:hidden;
+    box-shadow:0 3px 8px rgba(0,0,0,.08);
+    border-left:6px solid #0078D4;
+}
+
+.faq-question{
+    width:100%;
+    border:none;
+    background:#ffffff;
+    padding:20px 25px;
+    text-align:left;
+    cursor:pointer;
+
+    font-size:1rem;
+    font-weight:600;
+    color:#0078D4;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    transition:background .2s ease;
+}
+
+.faq-question:hover{
+    background:#f5f9ff;
+}
+
+.faq-question::after{
+    content:"+";
+    font-size:1.5rem;
+    font-weight:700;
+    transition:transform .2s ease;
+}
+
+.faq-item.active .faq-question::after{
+    content:"−";
+}
+
+.faq-answer{
+    display:none;
+    padding:0 25px 25px 25px;
+    border-top:1px solid #e5e5e5;
+}
+
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+.faq-answer h4{
+    color:#0078D4;
+    margin-top:25px;
+    margin-bottom:10px;
+}
+
+.faq-answer pre{
+    background:#0f172a;
+    color:#f8fafc;
+
+    padding:15px;
+    border-radius:8px;
+
+    overflow-x:auto;
+
+    font-family:Consolas, monospace;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.faq-answer p{
+    line-height:1.7;
+}

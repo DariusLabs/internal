@@ -680,44 +680,51 @@
 
     </div>
 
-    <div class="section">
-    <h2>❓ FAQ – Application-aware Image Processing Warning</h2>
+    <div class="faq-item">
 
-    <p>
-        During the upgrade to Veeam Backup & Replication 13, the compatibility check may display the following warning:
-    </p>
+    <button class="faq-question">
+        Application-aware Image Processing Warning during Veeam 13 Upgrade
+    </button>
 
-    <img src="assets/veeam13-compatibility-warning.webp"
-         class="tutorial-image"
-         alt="Application-aware Image Processing Warning">
+    <div class="faq-answer">
 
-    <p>
-        This warning indicates that one or more backup jobs may still reference legacy Guest Processing settings that are no longer available in Veeam 13.
-    </p>
+        <p>
+            During the upgrade to Veeam Backup & Replication 13, the compatibility check may display the following warning:
+        </p>
 
-    <h3>Verification</h3>
+        <img src="assets/veeam13-compatibility-warning.webp"
+             class="tutorial-image"
+             alt="Application-aware Image Processing Warning">
 
-    <p>
-        Open each backup job and review the Guest Processing settings.
-    </p>
+        <p>
+            This warning indicates that one or more backup jobs may still reference legacy Guest Processing settings that are no longer available in Veeam 13.
+        </p>
 
-    <img src="assets/veeam13-guest-processing-check.webp"
-         class="tutorial-image"
-         alt="Guest Processing Configuration">
+        <h4>Verification</h4>
 
-    <p>
-        Verify that <strong>Enable application-aware processing</strong> is disabled if the feature is not required.
-    </p>
+        <p>
+            Open each backup job and review the Guest Processing settings.
+        </p>
 
-    <h3>Resolution</h3>
+        <img src="assets/veeam13-guest-processing-check.webp"
+             class="tutorial-image"
+             alt="Guest Processing Configuration">
 
-    <p>
-        If Application-Aware Processing is not used in the environment, disable the option and rerun the compatibility check.
-    </p>
+        <p>
+            Verify that <strong>Enable application-aware processing</strong> is disabled if the feature is not required.
+        </p>
 
-    <p>
-        In some environments, the warning may still be displayed even though the option is already disabled. In this case, the warning is informational and the upgrade can continue.
-    </p>
+        <h4>Resolution</h4>
+
+        <p>
+            If Application-Aware Processing is not used in the environment, disable the option and rerun the compatibility check.
+        </p>
+
+        <p>
+            In some environments, the warning may still be displayed even though the option is already disabled. In this case, the warning is informational and the upgrade can continue.
+        </p>
+
+    </div>
 
 </div>
 
@@ -749,6 +756,7 @@
 
 <script src="../theme.js"></script>
 <script src="../copy.js"></script>
+<script src="../faq.js"></script>
 
 </body>
 </html>
