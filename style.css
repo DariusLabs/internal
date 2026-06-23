@@ -2,20 +2,34 @@
     --bg: #0f172a;
     --surface: #1e293b;
     --surface-hover: #334155;
+
     --text: #f8fafc;
     --text-secondary: #cbd5e1;
+
     --border: #475569;
+
     --accent: #3b82f6;
+
+    --success: #2e7d32;
+    --warning: #f9a825;
+    --danger: #c62828;
 }
 
 [data-theme="light"]{
     --bg: #f8fafc;
     --surface: #ffffff;
     --surface-hover: #f1f5f9;
+
     --text: #0f172a;
     --text-secondary: #475569;
+
     --border: #cbd5e1;
+
     --accent: #2563eb;
+
+    --success: #2e7d32;
+    --warning: #f9a825;
+    --danger: #c62828;
 }
 
 body{
@@ -57,9 +71,9 @@ p{
 
 body {
     margin: 0;
-    background: #f3f3f3;
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: #2a2a2a;
 }
 
 header {
@@ -82,18 +96,18 @@ header {
 }
 
 .section {
-    background: white;
+    background: var(--surface);
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-    border-left: 6px solid #0078D4;
+    border-left: 6px solid var(--accent);
 }
 
 .section h2 {
     font-size: 1.5rem;
     margin-top: 0;
-    color: #0078D4;
+    color: var(--accent);
     display: flex;
     align-items: center;
 }
@@ -953,32 +967,27 @@ input:checked + .chk {
 }
 
 .info-box{
-    background:#eef7ff;
-    border-left:5px solid #0078D4;
+    background: rgba(59,130,246,.12);
+    border-left:5px solid var(--accent);
     padding:15px;
     border-radius:8px;
     margin-top:15px;
 }
 
 .success-box{
-    background:#f0fff4;
-    border-left:5px solid #2e7d32;
+    background: rgba(46,125,50,.12);
+    border-left:5px solid var(--success);
     padding:15px;
     border-radius:8px;
     margin-top:15px;
 }
 
 .warning-box{
-    background:#fff8e1;
-    border-left:5px solid #f9a825;
+    background: rgba(249,168,37,.12);
+    border-left:5px solid var(--warning);
     padding:15px;
     border-radius:8px;
     margin-top:15px;
-}
-
-.footer-logo{
-    max-height:70px;
-    margin-bottom:10px;
 }
 
 @media print{
@@ -1047,7 +1056,7 @@ input:checked + .chk {
    ============================================================ */
 
 .faq-item{
-    background:#ffffff;
+    background:var(--surface);
     border-radius:12px;
     margin-bottom:15px;
     overflow:hidden;
@@ -1058,14 +1067,14 @@ input:checked + .chk {
 .faq-question{
     width:100%;
     border:none;
-    background:#ffffff;
+    background:var(--surface);
+    color:var(--accent);
     padding:20px 25px;
     text-align:left;
     cursor:pointer;
 
     font-size:1rem;
     font-weight:600;
-    color:#0078D4;
 
     display:flex;
     justify-content:space-between;
@@ -1075,7 +1084,7 @@ input:checked + .chk {
 }
 
 .faq-question:hover{
-    background:#f5f9ff;
+    background:var(--surface-hover);
 }
 
 .faq-question::after{
@@ -1091,6 +1100,7 @@ input:checked + .chk {
 
 .faq-answer{
     display:none;
+    color: var(--text);
     padding:0 25px 25px 25px;
     border-top:1px solid #e5e5e5;
 }
@@ -1121,7 +1131,9 @@ input:checked + .chk {
 
 .faq-answer p{
     line-height:1.7;
+    color: var(--text-secondary);
 }
+
 
 /* ============================================================
    Tableau
