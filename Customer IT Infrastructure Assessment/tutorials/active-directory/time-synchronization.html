@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Time Synchronization (NTP)</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Time Synchronization (NTP)</h1>
+    <p class="subtitle">Tutorial – Active Directory Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>time synchronization (NTP)</strong>
+            is correctly configured and operational in the Active Directory environment.
+        </p>
+
+        <p>
+            Accurate time synchronization is critical for:
+        </p>
+
+        <ul>
+            <li>Kerberos authentication</li>
+            <li>Domain logons</li>
+            <li>Active Directory replication</li>
+            <li>Security event correlation</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Domain account with <strong>read or admin permissions</strong></li>
+            <li>Access to at least one <strong>Domain Controller</strong></li>
+            <li>PowerShell or Command Prompt access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Time Synchronization</h2>
+
+        <p>
+            Open Command Prompt or PowerShell on a Domain Controller and run:
+        </p>
+
+        <pre>
+w32tm /query /status
+        </pre>
+
+        <p>
+            Verify the following:
+        </p>
+
+        <ul>
+            <li>A valid <strong>Source</strong> is displayed</li>
+            <li>No synchronization errors are reported</li>
+            <li>The clock appears synchronized correctly</li>
+        </ul>
+
+        <p>
+            Common valid sources:
+        </p>
+
+        <ul>
+            <li>domain controller hostname</li>
+            <li>time.windows.com</li>
+            <li>pool.ntp.org</li>
+            <li>internal NTP server</li>
+        </ul>
+
+        <ul>
+            <li>✅ Valid source displayed = synchronization operational</li>
+            <li>⚠️ Local CMOS Clock = possible NTP issue</li>
+            <li>❌ Errors or unsynchronized state = NTP issue</li>
+        </ul>
+
+        <img src="../../assets/time-synchronization/step1-w32tm-status.png"
+             alt="W32TM status"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Verify Time Source Configuration</h2>
+
+        <p>
+            Verify the configured NTP source:
+        </p>
+
+        <pre>
+w32tm /query /configuration
+        </pre>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>An external or internal NTP server is configured</li>
+            <li>The PDC Emulator is configured as a reliable time source</li>
+            <li>No invalid or missing NTP configuration is detected</li>
+        </ul>
+
+        <ul>
+            <li>✅ Valid NTP configuration = OK</li>
+            <li>⚠️ Missing or unclear source = WARNING</li>
+            <li>❌ No valid NTP configuration = NOK</li>
+        </ul>
+
+        <img src="../../assets/time-synchronization/step2-w32tm-config.png"
+             alt="W32TM configuration"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Time synchronization operational and correctly configured.</li>
+            <li>⚠️ <strong>WARNING</strong> – Minor configuration or synchronization issues detected.</li>
+            <li>❌ <strong>NOK</strong> – Time synchronization failure or invalid NTP source.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

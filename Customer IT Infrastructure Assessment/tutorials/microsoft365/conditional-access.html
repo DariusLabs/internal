@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Conditional Access</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Conditional Access</h1>
+    <p class="subtitle">Tutorial – Microsoft 365 Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>Conditional Access policies are configured and enabled</strong>.
+        </p>
+
+        <p>
+            Missing Conditional Access policies can expose the tenant to:
+        </p>
+
+        <ul>
+            <li>Unauthorized access</li>
+            <li>Password attacks</li>
+            <li>Unsecured sign-ins</li>
+            <li>Identity compromise</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>Microsoft Entra Admin Center</strong></li>
+            <li>User account with <strong>Security Reader or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Conditional Access Policies</h2>
+
+        <p>
+            Open the Microsoft Entra Admin Center and navigate to:
+        </p>
+
+        <p>
+            <img src="../../assets/icons/microsoft-entra.png"
+                 alt="Microsoft Entra"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>Microsoft Entra → ID Protection → Risk-based Conditional Access → Policies</strong>
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-link"></i>
+                Direct Link
+            </div>
+
+            <div class="link-content">
+
+<pre>https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Conditional Access policies are present</li>
+            <li>At least one policy is enabled</li>
+            <li>MFA protection policies exist</li>
+        </ul>
+
+        <p>
+            Important recommended policies:
+        </p>
+
+        <ul>
+            <li>Block legacy authentication</li>
+            <li>Multifactor authentication for admins</li>
+            <li>Multifactor authentication for all users</li>
+        </ul>
+
+        <img src="../../assets/m365-conditional-access/step1-conditional-access.png"
+             alt="Conditional Access policies"
+             style="width:100%; max-width:1200px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Conditional Access policies are configured and critical MFA protections are enabled.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Conditional Access exists but important protections are missing or disabled.</li>
+
+            <li>❌ <strong>NOK</strong> – No Conditional Access policies configured or no MFA protection enabled.</li>
+        </ul>
+
+        <p>
+            <strong>Conditional Access is considered a critical Microsoft 365 security protection.</strong>
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Recent ESXi / VM Alerts</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Recent ESXi / VM Alerts</h1>
+    <p class="subtitle">Tutorial – VMware Monitoring Checklist Verification</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+        <p>
+            This check verifies that <strong>recent alerts and alarms related to ESXi hosts
+            and virtual machines</strong> have been reviewed in the vSphere environment.
+        </p>
+        <p>
+            The purpose is to confirm visibility of <strong>active or recent alerts</strong>,
+            if any, and to ensure that the environment has been monitored.
+            This is a <strong>verification-only control</strong>.
+        </p>
+        <p>
+            <strong>No configuration or remediation is required.</strong>
+            The checklist item may be validated even if
+            <strong>no alerts are present</strong>, as long as the alert view has been reviewed.
+        </p>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Review Recent ESXi and VM Alerts</h2>
+
+        <p>
+            Navigate to the monitoring and alarm views to review recent alerts:
+        </p>
+
+        <ul>
+            <li><strong>Menu</strong> → <strong>Hosts and Clusters</strong></li>
+            <li>Select a <strong>datacenter</strong>, <strong>host</strong>, or <strong>virtual machine</strong></li>
+            <li>Open the <strong>Monitor</strong> tab</li>
+            <li>Review <strong>Issues</strong>, <strong>Triggered Alarms</strong>, or <strong>Alerts</strong></li>
+        </ul>
+
+        <p>
+            Verify whether recent alerts are present.
+            If alerts exist, confirm they have been reviewed.
+            If <strong>no alerts are present</strong>, this is considered acceptable.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step2.png"
+             alt="Recent ESXi and VM alerts"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – Alerts view reviewed.
+                No alerts present or alerts reviewed.
+            </li>
+            <li>
+                ℹ️ <strong>Information</strong> – Historical alerts found and already resolved.
+                No action required.
+            </li>
+            <li>
+                ⚠️ <strong>Warning</strong> – Active alerts detected that may require follow-up.
+            </li>
+            <li>
+                ❌ <strong>NOK</strong> – Alerts view not accessible or review could not be performed.
+            </li>
+        </ul>
+
+        <p>
+            <strong>Note:</strong> This checklist item validates that recent alerts
+            have been reviewed. It does <strong>not</strong> require the existence
+            of active alerts.
+        </p>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

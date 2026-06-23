@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Microsoft 365 Secure Score</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Microsoft 365 Secure Score</h1>
+    <p class="subtitle">Tutorial – Microsoft 365 Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies the <strong>overall Microsoft 365 security posture</strong> using Secure Score.
+        </p>
+
+        <p>
+            A low Secure Score may indicate:
+        </p>
+
+        <ul>
+            <li>Weak security configurations</li>
+            <li>Missing protection features</li>
+            <li>Identity security risks</li>
+            <li>Increased attack exposure</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>Microsoft Defender Portal</strong></li>
+            <li>User account with <strong>Security Reader or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Secure Score</h2>
+
+        <p>
+            Open the Microsoft Defender portal and navigate to:
+        </p>
+
+        <p>
+            <img src="../../assets/icons/microsoft-defender.png"
+                 alt="Microsoft Defender"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>Microsoft Defender → Exposure Management → Secure Score</strong>
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-link"></i>
+                Direct Link
+            </div>
+
+            <div class="link-content">
+
+<pre>https://security.microsoft.com/securescore</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>The Secure Score is not critically low</li>
+            <li>No critical improvement actions are ignored</li>
+            <li>The score trend is stable or improving</li>
+        </ul>
+
+        <img src="../../assets/m365-secure-score/step1-secure-score.png"
+             alt="Microsoft 365 Secure Score"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Secure Score above 50%.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Secure Score between 30% and 50%.</li>
+
+            <li>❌ <strong>NOK</strong> – Secure Score below 30%.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

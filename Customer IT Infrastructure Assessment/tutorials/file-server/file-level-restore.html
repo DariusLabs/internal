@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – File-Level Restore</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>File-Level Restore</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>file-level restore</strong>
+            is operational in the backup solution.
+        </p>
+
+        <p>
+            File-level restore allows recovery of:
+        </p>
+
+        <ul>
+            <li>Deleted files</li>
+            <li>Modified files</li>
+            <li>Folders or documents</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>backup solution</strong></li>
+            <li>User account with <strong>backup operator or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify File-Level Restore</h2>
+
+        <p>
+            Open the Veeam console and navigate to:
+        </p>
+
+        <ul>
+            <li><strong>Home</strong></li>
+            <li><strong>Restore</strong></li>
+            <li><strong>Restore from backup</strong></li>
+            <li><strong>Guest files restore</strong></li>
+            <li><strong>Microsoft Windows</strong></li>
+        </ul>
+
+        <p>
+            Then:
+        </p>
+
+        <ul>
+            <li>Select the backup job</li>
+            <li>Select the virtual machine</li>
+            <li>Select a restore point</li>
+        </ul>
+
+        <p>
+            Verify that files and folders are visible in the restore browser.
+        </p>
+
+        <img src="../../assets/file-server-file-restore/step1-file-level-restore.png"
+             alt="File-level restore verification"
+             style="width:100%; max-width:700px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – File-level restore operational and restore points available.</li>
+            <li>⚠️ <strong>WARNING</strong> – Restore points available but verification incomplete.</li>
+            <li>❌ <strong>NOK</strong> – File-level restore unavailable or backup inaccessible.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

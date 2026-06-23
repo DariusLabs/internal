@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Admin Groups Memberships</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Admin Groups Memberships</h1>
+    <p class="subtitle">Tutorial – Active Directory Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+        <p>
+            This check verifies the <strong>membership of privileged Active Directory groups</strong>.
+            Reviewing administrative group membership is essential to ensure the
+            <strong>principle of least privilege</strong> and reduce security risks.
+        </p>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Domain account with <strong>read or admin permissions</strong></li>
+            <li>Access to at least one <strong>Domain Controller</strong></li>
+            <li>PowerShell or Command Prompt access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Identify Privileged Groups</h2>
+
+        <p>
+            Some Active Directory environments use localized group names
+            (for example French or Dutch names instead of English).
+        </p>
+
+        <p>
+            First, list all groups containing the word <strong>admin</strong>
+            to identify the exact group names used in the domain.
+        </p>
+
+        <pre>
+Get-ADGroup -Filter 'Name -like "*admin*"' | Select Name
+        </pre>
+
+        <p>
+            You can also list all Active Directory groups if needed:
+        </p>
+
+        <pre>
+Get-ADGroup -Filter * | Select Name
+        </pre>
+
+        <p>
+            Look for privileged groups such as:
+        </p>
+
+        <ul>
+            <li>Domain Admins</li>
+            <li>Admins du domaine</li>
+            <li>Enterprise Admins</li>
+            <li>Admins de l’entreprise</li>
+            <li>Schema Admins</li>
+            <li>Admins du schéma</li>
+            <li>Administrators</li>
+            <li>Administrateurs</li>
+        </ul>
+
+        <p>
+            Use the exact group name returned by the previous command.
+        </p>
+
+        <img src="../../assets/admin-groups-memberships/step1-domain-admins.png"
+             alt="Identify privileged groups"
+             style="width:100%; max-width:600px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Review Group Memberships</h2>
+
+        <p>
+            Once the correct group names are identified,
+            review their memberships and verify that each account has a
+            <strong>legitimate administrative purpose</strong>.
+        </p>
+
+        <ul>
+            <li>No unexpected or inactive accounts</li>
+            <li>No regular user accounts</li>
+            <li>Minimal number of members</li>
+        </ul>
+
+        <p>
+            Use PowerShell to display group members with the exact names
+            identified in Step 1.
+        </p>
+
+        <pre>
+Get-ADGroupMember "Admins du domaine"
+Get-ADGroupMember "Admins de l’entreprise"
+Get-ADGroupMember "Admins du schéma"
+Get-ADGroupMember "Administrateurs"
+        </pre>
+
+        <p>
+            Replace the group names above with the exact names returned
+            in your own environment.
+        </p>
+
+        <img src="../../assets/admin-groups-memberships/step2-review-members.png"
+             alt="Review admin group members"
+             style="width:100%; max-width:600px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 3 -->
+<div class="section">
+    <h2><i class="fa-solid fa-3"></i> Validate Nested Groups</h2>
+
+    <p>
+        Verify that no <strong>nested groups</strong> are present inside privileged groups.
+    </p>
+
+    <p>
+        A nested group means that another Active Directory group has been added
+        inside a privileged administrative group.
+    </p>
+
+    <p>
+        Use PowerShell to display only nested groups:
+    </p>
+
+    <pre>
+Get-ADGroupMember "Admins du domaine" | Where-Object {$_.objectClass -eq "group"}
+    </pre>
+
+    <p>
+        Replace <strong>"Admins du domaine"</strong> with the exact group name
+        identified in Step 1.
+    </p>
+
+    <ul>
+        <li>✅ No result = no nested groups detected</li>
+        <li>⚠️ Group names displayed = nested groups detected</li>
+    </ul>
+</div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>✅ <strong>OK</strong> – Admin groups contain only authorized and justified members.</li>
+            <li>⚠️ <strong>WARNING</strong> – Excessive or undocumented administrative memberships.</li>
+            <li>❌ <strong>NOK</strong> – Unauthorized accounts with elevated privileges detected.</li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

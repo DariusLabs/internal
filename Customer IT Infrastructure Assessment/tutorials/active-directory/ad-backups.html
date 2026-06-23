@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – AD Backup Verification</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>AD Backup Verification</h1>
+    <p class="subtitle">Tutorial – Active Directory Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that at least one
+            <strong>Domain Controller is properly backed up</strong>
+            using the organization's backup solution.
+        </p>
+
+        <p>
+            Active Directory backups are essential to recover
+            from corruption, ransomware, accidental deletion,
+            or major infrastructure incidents.
+        </p>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the backup solution</li>
+            <li>Read access to backup jobs or reports</li>
+            <li>At least one Domain Controller present in the environment</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Domain Controller Backups</h2>
+
+        <p>
+            Open the organization's backup solution
+            (Veeam, Acronis, Nakivo, Altaro, etc.)
+            and verify that at least one Domain Controller is included in backups.
+        </p>
+
+        <p>
+            Confirm that:
+        </p>
+
+        <ul>
+            <li>A recent backup of the Domain Controller exists</li>
+            <li>The latest backup job completed successfully</li>
+            <li>Backups are performed regularly</li>
+        </ul>
+
+        <ul>
+            <li>✅ Recent successful backup = OK</li>
+            <li>⚠️ Old or irregular backups = WARNING</li>
+            <li>❌ No Domain Controller backup = NOK</li>
+        </ul>
+
+        <img src="../../assets/ad-backup/step1-veeam.png"
+             alt="Domain Controller backup verification"
+             style="width:100%; max-width:500px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Domain Controller backups are recent and successful.</li>
+            <li>⚠️ <strong>WARNING</strong> – Backups exist but are outdated or inconsistent.</li>
+            <li>❌ <strong>NOK</strong> – No valid backup found for Domain Controllers.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

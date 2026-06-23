@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Shadow Copies</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Shadow Copies</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>Shadow Copies (Previous Versions)</strong>
+            are enabled on the File Server volumes.
+        </p>
+
+        <p>
+            Shadow Copies allow quick recovery of:
+        </p>
+
+        <ul>
+            <li>Deleted files</li>
+            <li>Modified files</li>
+            <li>Previous folder versions</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Shadow Copies</h2>
+
+        <p>
+            On the File Server:
+        </p>
+
+        <ul>
+            <li>Open <strong>This PC</strong></li>
+            <li>Right-click the data volume</li>
+            <li>Select <strong>Configure Shadow Copies</strong></li>
+        </ul>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Shadow Copies are enabled on data volumes</li>
+            <li>A storage limit is configured</li>
+            <li>Scheduled snapshots are present</li>
+        </ul>
+
+        <img src="../../assets/file-server-shadow-copies/step1-shadow-copies.png"
+             alt="Shadow Copies configuration"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Shadow Copies enabled and configured correctly.</li>
+            <li>⚠️ <strong>WARNING</strong> – Shadow Copies enabled but schedule or storage configuration incomplete.</li>
+            <li>❌ <strong>NOK</strong> – Shadow Copies disabled or missing on data volumes.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Firewall Interfaces Status</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Firewall Interfaces Status</h1>
+    <p class="subtitle">Tutorial – Network / Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that the <strong>firewall network interfaces are operational</strong>.
+        </p>
+
+        <p>
+            Firewall interface issues can impact:
+        </p>
+
+        <ul>
+            <li>Internet connectivity</li>
+            <li>LAN communication</li>
+            <li>VPN availability</li>
+            <li>Network segmentation</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>firewall management interface</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Firewall Interfaces</h2>
+
+        <p>
+            Open the firewall management interface and verify the interface status.
+        </p>
+
+        <p>
+            <img src="../../assets/icons/fortinet.png"
+                 alt="Fortinet"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>Example: FortiGate → Network → Interfaces</strong>
+        </p>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>WAN and LAN interfaces are online</li>
+            <li>No interface is disconnected or down</li>
+            <li>No abnormal interface errors are present</li>
+        </ul>
+
+        <img src="../../assets/firewall-interfaces-status/step1-firewall-interfaces.png"
+             alt="Firewall interfaces"
+             style="width:100%; max-width:1200px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Firewall interfaces are operational and connected.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Minor interface issues or inactive interfaces detected.</li>
+
+            <li>❌ <strong>NOK</strong> – Critical interfaces are disconnected, down, or unstable.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi Omandani
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

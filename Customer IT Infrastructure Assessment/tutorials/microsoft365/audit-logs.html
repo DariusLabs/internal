@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Audit Logs</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Audit Logs</h1>
+    <p class="subtitle">Tutorial – Microsoft 365 Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>Microsoft 365 audit logging is enabled</strong>.
+        </p>
+
+        <p>
+            Missing audit logs can impact:
+        </p>
+
+        <ul>
+            <li>Security investigations</li>
+            <li>Incident response</li>
+            <li>User activity tracking</li>
+            <li>Compliance requirements</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>Microsoft Purview Portal</strong></li>
+            <li>User account with <strong>Compliance Admin or Global Admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Audit Logging</h2>
+
+        <p>
+            Open the Microsoft Purview portal and navigate to:
+        </p>
+
+        <p>
+            <img src="../../assets/icons/microsoft-purview.png"
+                 alt="Microsoft Purview"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>Microsoft Purview → Solutions → Audit</strong>
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-link"></i>
+                Direct Link
+            </div>
+
+            <div class="link-content">
+
+<pre>https://purview.microsoft.com/audit</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Audit logging is enabled</li>
+            <li>No "Start recording user and admin activity" message is displayed</li>
+            <li>Audit events can be searched</li>
+        </ul>
+
+        <img src="../../assets/m365-audit-logs/step1-audit-logs.png"
+             alt="Microsoft 365 audit logs"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Audit logging is enabled and operational.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Audit logging is partially configured or limited.</li>
+
+            <li>❌ <strong>NOK</strong> – Audit logging is disabled or unavailable.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

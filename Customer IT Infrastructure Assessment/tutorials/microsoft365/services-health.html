@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Microsoft 365 Service Health</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Microsoft 365 Service Health</h1>
+    <p class="subtitle">Tutorial – Microsoft 365 Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>Microsoft 365 core services are operational and healthy</strong>.
+        </p>
+
+        <p>
+            Microsoft 365 service issues can impact:
+        </p>
+
+        <ul>
+            <li>Email services</li>
+            <li>File access and synchronization</li>
+            <li>Microsoft Teams</li>
+            <li>User authentication</li>
+            <li>Business productivity</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>Microsoft 365 Admin Center</strong></li>
+            <li>User account with <strong>admin or reader permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Microsoft 365 Service Health</h2>
+
+        <p>
+            Open the Microsoft 365 Admin Center and navigate to:
+        </p>
+
+        <p>
+            <img src="../../assets/icons/microsoft-365.png"
+                 alt="Microsoft 365"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>Microsoft 365 Admin Center → Health → Service Health</strong>
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-link"></i>
+                Direct Link
+            </div>
+
+            <div class="link-content">
+
+<pre>https://admin.microsoft.com/Adminportal/Home#/servicehealth</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that core Microsoft 365 services are healthy:
+        </p>
+
+        <ul>
+            <li>Exchange Online</li>
+            <li>SharePoint Online</li>
+            <li>Microsoft Teams</li>
+            <li>OneDrive</li>
+            <li>Microsoft Entra ID</li>
+        </ul>
+
+        <p>
+            Verify that no major incidents or service degradations are present.
+        </p>
+
+        <img src="../../assets/m365-services-health/step1-services-health.png"
+             alt="Microsoft 365 service health"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Core Microsoft 365 services are healthy and operational.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Minor service degradations or advisories detected.</li>
+
+            <li>❌ <strong>NOK</strong> – Major incidents or service outages detected.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

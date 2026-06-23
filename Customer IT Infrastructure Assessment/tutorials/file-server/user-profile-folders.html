@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – User Profiles Folder</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>User Profiles Folder</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that the <strong>User Profiles folder</strong>
+            is present, accessible, and properly secured.
+        </p>
+
+        <p>
+            Incorrect profile configuration can cause:
+        </p>
+
+        <ul>
+            <li>User login issues</li>
+            <li>Profile corruption</li>
+            <li>Unauthorized access to user data</li>
+            <li>Storage problems</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+            <li>File Explorer access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify User Profiles Folder</h2>
+
+        <p>
+            Open File Explorer and navigate to the profiles folder.
+        </p>
+
+        <p>
+            Example:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">Explorer</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-content">
+<pre>\\FileServerName\Commun\DocParta</pre>
+            </div>
+
+        </div>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>One folder exists per user</li>
+            <li>No suspicious or orphaned folders are present</li>
+            <li>Folder names match user accounts</li>
+            <li>Users cannot access other users’ folders</li>
+        </ul>
+
+        <ul>
+            <li>✅ Profiles accessible and secured = OK</li>
+            <li>⚠️ Minor permission or cleanup issues detected = WARNING</li>
+            <li>❌ Insecure or misconfigured access detected = NOK</li>
+        </ul>
+
+        <img src="../../assets/file-server-user-profiles/step1-user-profiles.png"
+             alt="User profiles verification"
+             style="width:100%; max-width:800px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – User profiles folder correctly configured and secured.</li>
+            <li>⚠️ <strong>WARNING</strong> – Minor permission or cleanup issues detected.</li>
+            <li>❌ <strong>NOK</strong> – Insecure or misconfigured user profile access.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

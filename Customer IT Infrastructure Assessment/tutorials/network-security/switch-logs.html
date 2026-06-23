@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Switch Logs</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Switch Logs</h1>
+    <p class="subtitle">Tutorial – Network / Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>no critical errors or abnormal events are present in switch logs</strong>.
+        </p>
+
+        <p>
+            Switch log issues can indicate:
+        </p>
+
+        <ul>
+            <li>Network instability</li>
+            <li>Port flapping</li>
+            <li>Loop or broadcast issues</li>
+            <li>Hardware problems</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>switch management interface</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Switch Logs</h2>
+
+        <p>
+            Open the switch management interface and review system logs.
+        </p>
+
+        <p>
+            <img src="../../assets/icons/hp-aruba.png"
+                 alt="Fortinet"
+                 style="height:20px; width:auto; vertical-align:middle; margin-right:8px;">
+
+            <strong>HP Aruba → Diagnostics → Event Log</strong>
+        </p>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>No critical or recurring errors are present</li>
+            <li>No interface flapping is detected</li>
+            <li>No loop or hardware alerts are reported</li>
+        </ul>
+
+        <img src="../../assets/switch-logs/step1-switch-logs.png"
+             alt="Switch logs"
+             style="width:100%; max-width:1200px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – No critical switch errors detected.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Minor or recurring warnings detected in logs.</li>
+
+            <li>❌ <strong>NOK</strong> – Critical switch errors, loops, or hardware alerts detected.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Customer IT Infrastructure Assessment</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+    <h1>Customer IT Infrastructure Assessment</h1>
+    <p class="subtitle">FlexStaffer – IT Checklist & Review</p>
+</header>
+
+    <!-- ACTION BUTTONS -->
+    <div class="container">
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-bar">
+        <button class="btn primary" onclick="saveAudit()">
+            <i class="fa-solid fa-save"></i> Save Audit
+        </button>
+
+        <button class="btn secondary" onclick="document.getElementById('fileInput').click()">
+            <i class="fa-solid fa-folder-open"></i> Load Audit
+        </button>
+
+        <button class="btn secondary" onclick="exportPDF()">
+            <i class="fa-solid fa-file-pdf"></i> Export PDF
+        </button>
+
+        <input
+            type="file"
+            id="fileInput"
+            accept=".json"
+            hidden
+            onchange="loadAudit(event)"
+        >
+    </div>
+
+    <!-- INFORMATIONS -->
+    <div class="section">
+        <h2>
+            <i class="fa-solid fa-user"></i>
+            Informations
+        </h2>
+
+        <!-- Customer -->
+        <label for="clientName">
+            <strong>Customer:</strong>
+        </label>
+        <input
+            type="text"
+            id="clientName"
+            class="form-input"
+            placeholder="Example: Commune de Tenneville"
+        >
+        <!-- Errors -->
+        <p id="clientNameError">⚠ The customer name is required.</p>
+
+        <!-- Engineer -->
+        <label for="stafferName">
+            <strong>Engineer name:</strong>
+        </label>
+        <input
+            type="text"
+            id="stafferName"
+            class="form-input"
+            placeholder="Example : Jasha Eslahi"
+            autocomplete="name"
+        >
+        <!-- Errors -->
+        <p id="stafferNameError">⚠ The engineer name is required.</p>
+
+        <!-- Date -->
+        <label for="date">
+            <strong>Audit date:</strong>
+        </label>
+        <div class="date-wrapper">
+            <input
+                type="date"
+                id="date"
+                name="date"
+                class="date-input"
+            >
+            <button
+                type="button"
+                id="setToday"
+                class="today-btn"
+            >
+                Today
+            </button>
+        </div>
+    </div>
+
+    <!-- ===================== VIRTUAL MACHINES ===================== -->
+<div class="section">
+  <h2><i class="fa-brands fa-windows"></i> Virtual Machines</h2>
+
+  <div class="vm-table">
+    <!-- HEADER -->
+    <div class="vm-header">
+    <div class="vm-col vm-actions"></div>
+    <div class="vm-col vm-name">VMs</div>
+    <div class="vm-col">Updated</div>
+    <div class="vm-col">Restarted</div>
+    <div class="vm-col">CPU</div>
+    <div class="vm-col">Disk</div>
+    <div class="vm-col">RAM</div>
+    <div class="vm-col">Antivirus</div>
+    <div class="vm-col">Firewall</div>
+</div>
+
+
+    <!-- VM ROW -->
+    <div class="vm-row vm-template" data-template>
+      
+    <div class="vm-actions">
+        <i class="fa-solid fa-trash vm-delete"></i>
+    </div>
+
+    <div class="vm-name">
+    <input type="text" class="vm-name-input" value="TEN-vDC01" placeholder="VM name">
+    </div>
+
+      <!-- UPDATED -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_updated"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_updated"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- RESTARTED -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_restart"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_restart"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- CPU -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_cpu"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_cpu"><span class="chk warn"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_cpu"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- DISK -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_disk"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_disk"><span class="chk warn"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_disk"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- RAM -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_ram"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_ram"><span class="chk warn"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_ram"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- ESET -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_eset"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_eset"><span class="chk notdone"></span></label>
+      </div>
+
+      <!-- FIREWALL -->
+      <div class="vm-cells">
+        <label class="choice"><input type="checkbox" name="vm1_fw"><span class="chk done"></span></label>
+        <label class="choice"><input type="checkbox" name="vm1_fw"><span class="chk notdone"></span></label>
+      </div>
+    </div>
+  </div>
+    <button class="btn secondary" id="addVmLine">
+        <i class="fa-solid fa-plus"></i> Add a line
+    </button>
+  </div>
+
+    <!-- SERVERS & VIRTUAL INFRA -->
+    <div class="section">
+        <h2><i class="fa-solid fa-server"></i> Servers & Virtual Infrastructure</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+    <span class="col-item">CHECK</span>
+    <span class="col-done">OK</span>
+    <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+    <span class="col-not">NOK</span>
+</div>
+
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/esxi-hosts-reachable">ESXi hosts reachability</a>
+
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="esxi_reachability"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_reachability"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_reachability"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/esxi-hardware-health">ESXi hardware health</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="esxi_health"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_health"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_health"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/hypervisor-updates">ESXi hypervisor updates</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="esxi_updates"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_updates"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_updates"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/datastore-free-space">Datastore free space</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="esxi_datastore"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_datastore"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="esxi_datastore"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/vm-cpu-ram-usage">VM CPU / RAM usage</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vm_cpu_ram"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_cpu_ram"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_cpu_ram"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/vmware-tools-updated">VMware tools status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vm_tools"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_tools"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_tools"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/old-snapshots-cleaned">VM snapshots</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vm_snapshots"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_snapshots"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vm_snapshots"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/raid-status-checked">RAID status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="raid_status"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="raid_status"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="raid_status"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/idrac-ilo-remote-access">iDRAC / iLO remote access</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="idrac_ilo"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="idrac_ilo"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="idrac_ilo"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/host-time-synchronization">Host time synchronization (NTP)</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="host_time_sync"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="host_time_sync"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="host_time_sync"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/vsphere-ha-cluster-health">vSphere HA / cluster health</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vsphere_ha"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vsphere_ha"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vsphere_ha"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="servers-virtual-infrastructure/recent-alerts-reviewed">Recent ESXi / VM alerts</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="recent_alerts"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="recent_alerts"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="recent_alerts"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- ACTIVE DIRECTORY -->
+    <div class="section">
+        <h2><i class="fa-solid fa-network-wired"></i> Active Directory</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+        <span class="col-item">CHECK</span>
+        <span class="col-done">OK</span>
+        <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="col-not">NOK</span>
+    </div>
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/ad-replication">AD replication</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_replication"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_replication"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_replication"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/fsmo-roles">FSMO roles</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_fsmos"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_fsmos"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_fsmos"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/dns-resolution">DNS resolution</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_dns"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_dns"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_dns"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/gpo-processing">GPO processing</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_gpo"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_gpo"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_gpo"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/sysvol-netlogon">SYSVOL & NETLOGON</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_sysvol"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_sysvol"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_sysvol"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/locked-out-users">Locked-out users</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_locked_users"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_locked_users"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_locked_users"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/admin-groups-membership">Admin groups membership</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_admin_group"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_admin_group"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_admin_group"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/ad-security-audit-logs">AD security audit logs</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_audit"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_audit"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_audit"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/ad-backups">AD backups (System State)</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_backups"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_backups"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_backups"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="active-directory/time-synchronization">Time synchronization (NTP)</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ad_time_sync"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_time_sync"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ad_time_sync"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- FILE SERVER -->
+    <div class="section">
+        <h2><i class="fa-solid fa-folder-tree"></i> File Server</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+        <span class="col-item">CHECK</span>
+        <span class="col-done">OK</span>
+        <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="col-not">NOK</span>
+    </div>
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/disk-space">Disk space</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_disk_space"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_disk_space"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_disk_space"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/smb-shares">SMB shares</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_shares"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_shares"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_shares"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/ntfs-permissions">NTFS permissions</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_permissions"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_permissions"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_permissions"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/antivirus-exclusions">Antivirus exclusions</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_antivirus_exclusions"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_antivirus_exclusions"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_antivirus_exclusions"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/shadow-copies">Shadow Copies</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_shadowcopy"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_shadowcopy"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_shadowcopy"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="file-server/file-level-restore">File-level restore</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fs_file_restore"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_file_restore"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fs_file_restore"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- BACKUP -->
+    <div class="section">
+        <h2><i class="fa-solid fa-shield-halved"></i>Backup & Disaster Recovery</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+        <span class="col-item">CHECK</span>
+        <span class="col-done">OK</span>
+        <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="col-not">NOK</span>
+    </div>
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/backup-jobs">Backup jobs</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_jobs"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_jobs"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_jobs"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/last-backup-timestamp">Last backup timestamp</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_last"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_last"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_last"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/restore-test">Restore test</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_restore_test"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_restore_test"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_restore_test"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/backup-storage-capacity">Backup storage capacity</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_capacity"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_capacity"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_capacity"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/offsite-backup-copy">Offsite backup copy</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_offsite"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_offsite"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_offsite"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/immutable-backup-protection">Immutable backup protection</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_ransomware"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_ransomware"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_ransomware"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="backup-disaster-recovery/veeam-license-status">Veeam License Status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="backup_success_trend"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_success_trend"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="backup_success_trend"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- MICROSOFT 365 -->
+    <div class="section">
+        <h2><i class="fa-brands fa-microsoft"></i> Microsoft 365</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+        <span class="col-item">CHECK</span>
+        <span class="col-done">OK</span>
+        <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="col-not">NOK</span>
+    </div>
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/secure-score">Secure Score</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_secure_score"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_secure_score"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_secure_score"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/audit-logs">Audit logs</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_audit_logs"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_audit_logs"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_audit_logs"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/services-health">Services Health</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_exchange"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_exchange"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_exchange"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/conditional-access">Conditional Access</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_ca_policies"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_ca_policies"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_ca_policies"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/mfa-compliance">MFA compliance</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_mfa"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_mfa"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_mfa"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/license-usage">License usage</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_licenses"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_licenses"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_licenses"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/inactive-users">Inactive users</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_inactive_users"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_inactive_users"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_inactive_users"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+             <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="microsoft365/external-sharing-settings">External sharing settings</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="m365_external_sharing"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_external_sharing"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="m365_external_sharing"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- NETWORK -->
+    <div class="section">
+        <h2><i class="fa-solid fa-network-wired"></i> Network / Security</h2>
+
+            <!-- HEADER FOR ALL CHECKLISTS -->
+    <div class="column-header">
+        <span class="col-item">CHECK</span>
+        <span class="col-done">OK</span>
+        <span class="col-warning"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="col-not">NOK</span>
+    </div>
+
+        <ul class="checklist">
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/firewall-status">Firewall status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fw_status"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_status"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_status"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/firewall-firmware">Firewall firmware</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fw_updates"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_updates"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_updates"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/firewall-interface-status">Firewall interfaces status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="fw_interfaces"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_interfaces"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="fw_interfaces"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/wan-internet-connectivity">WAN / Internet connectivity</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="internet_speed"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="internet_speed"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="internet_speed"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/switch-logs">Switch logs</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/switch-port-errors">Switch port errors</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="switch_logs"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/wifi-infrastructure">WiFi Infrastructure</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="wifi_status"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="wifi_status"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="wifi_status"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/external-dns-resolution">External DNS resolution</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="dns_resolution"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="dns_resolution"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="dns_resolution"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/vpn-tunnel-availability">VPN tunnel availability</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vpn_tunnel"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vpn_tunnel"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vpn_tunnel"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/vpn-logs">VPN logs</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="vpn_logs"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="vpn_logs"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="vpn_logs"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/certificate-expiration">Certificate expiration</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="cert_expiry"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="cert_expiry"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="cert_expiry"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+            <li class="item-row">
+                <a class="item-label item-tuto" data-tuto="network-security/antivirus-status">Antivirus status</a>
+                <div class="item-choices">
+                    <label class="choice"><input type="checkbox" name="ws_antivirus"><span class="chk done"></span></label>
+                    <label class="choice"><input type="checkbox" name="ws_antivirus"><span class="chk warn"></span></label>
+                    <label class="choice"><input type="checkbox" name="ws_antivirus"><span class="chk notdone"></span></label>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="section">
+        <h2><i class="fa-solid fa-comment"></i> Engineer Comments</h2>
+        <div id="comments" class="comments-box" contenteditable="true"></div>
+    </div>
+
+
+</div> <!-- ✅ FIN DU CONTAINER PRINCIPAL -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>FlexStaffer Audit Tool <br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<!-- Script -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+<script src="copy.js"></script>
+
+</body>
+</html>
+
+

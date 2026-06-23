@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – ESXi Hardware Health</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>ESXi Hardware Health</h1>
+    <p class="subtitle">Tutorial – VMware vSphere Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+<div class="section">
+    <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+    <p>
+        This check verifies the <strong>hardware health status of the ESXi host</strong>.
+        It reviews the reported state of critical components such as
+        <strong>CPU, memory, storage controllers, disks, power supplies, and fans</strong>.
+    </p>
+    <p>
+        This is a <strong>verification-only control</strong>.
+        No configuration, remediation, or hardware intervention is required.
+    </p>
+</div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i>Access ESXi Hardware Health Status</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong>, select the ESXi host,
+            then open the <strong>Monitor</strong> tab.
+        </p>
+
+        <p>
+            Navigate to:
+            <strong>Monitor → Hardware Health</strong>
+        </p>
+
+        <img src="../../assets/esxi-hardware-health/step2.png"
+             alt="ESXi hardware health overview"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-3"></i>Review Component Status</h2>
+        <p>
+            Review the reported health status of all hardware components.
+        </p>
+
+        <ul>
+            <li>CPU and memory status normal</li>
+            <li>Storage controllers and disks healthy</li>
+            <li>No failed or degraded components</li>
+            <li>No critical hardware alarms</li>
+        </ul>
+
+        <p>
+            If supported by the hardware vendor, ensure all sensors show
+            <strong>OK</strong> or <strong>Green</strong> status.
+        </p>
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – All hardware components report healthy status
+            </li>
+            <li>
+                ⚠️ <strong>WARNING</strong> – Non-critical warning detected (monitor closely)
+            </li>
+            <li>
+                ❌ <strong>NOK</strong> – Hardware failure or critical alert detected
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

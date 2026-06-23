@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – RAID Status</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>RAID Status</h1>
+    <p class="subtitle">Tutorial – VMware / Hardware Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+<div class="section">
+    <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+    <p>
+        This check verifies the <strong>health status of the physical RAID configuration</strong>
+        on the ESXi host. It reviews the condition of RAID arrays and underlying disks
+        to identify degraded or failed components.
+    </p>
+    <p>
+        This is a <strong>verification-only control</strong>.
+        No RAID configuration or disk replacement is performed as part of this check.
+    </p>
+</div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>iDRAC / iLO</strong></li>
+            <li>Administrator permissions</li>
+            <li>Stable network connection to the host management interface</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i>Access Remote Management Interface</h2>
+        <p>
+            Open a browser and access the remote management interface using its
+            <strong>IP address</strong> or <strong>FQDN</strong>.
+        </p>
+
+        <img src="../../assets/idrac-ilo-remote-access/step1.png"
+             alt="iLO / iDRAC overview"
+             style="width:100%; border-radius:8px; margin-top:15px; max-width: 350px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i>Check RAID and Disk Status</h2>
+        <p>
+            Navigate to the <strong>Storage</strong> or <strong>RAID</strong> section
+            and review the status of RAID arrays and physical disks.
+        </p>
+
+        <ul>
+            <li>RAID array status: <strong>Optimal</strong> or <strong>Healthy</strong></li>
+            <li>No failed or rebuilding disks</li>
+            <li>No degraded RAID configuration</li>
+        </ul>
+
+        <img src="../../assets/raid-status/step2.png"
+             alt="RAID status overview"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – RAID status healthy and all disks operational
+            </li>
+            <li>
+                ⚠️ <strong>WARNING</strong> – Degraded RAID or disk warning detected
+            </li>
+            <li>
+                ❌ <strong>NOK</strong> – RAID failure or disk missing/failed
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>
+``

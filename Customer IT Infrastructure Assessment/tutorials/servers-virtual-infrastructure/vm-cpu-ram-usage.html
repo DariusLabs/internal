@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – VM CPU / RAM Usage</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>VM CPU / RAM Usage</h1>
+    <p class="subtitle">Tutorial – VMware vSphere Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+<div class="section">
+    <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+    <p>
+        This check verifies the <strong>CPU and memory usage of virtual machines</strong>
+        in order to identify abnormal resource consumption that could indicate
+        performance issues or misconfiguration.
+    </p>
+    <p>
+        This is a <strong>verification-only control</strong>.
+        No resource tuning or remediation is performed as part of this check.
+    </p>
+</div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i>Review CPU and Memory Usage</h2>
+        <p>
+            Select a virtual machine and review CPU and memory usage from the <strong>Monitor → Utilization</strong> view.
+        </p>
+
+        <ul>
+            <li>No sustained high CPU usage</li>
+            <li>No memory saturation or ballooning</li>
+            <li>No performance-related alerts</li>
+        </ul>
+
+        <img src="../../assets/vm-cpu-ram-usage/step2.png"
+             alt="VM CPU and RAM usage overview"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – CPU and RAM usage within normal range
+            </li>
+            <li>
+                ⚠️ <strong>WARNING</strong> – Occasional peaks or moderate pressure observed
+            </li>
+            <li>
+                ❌ <strong>NOK</strong> – Sustained high usage or clear performance issue detected
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

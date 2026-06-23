@@ -1,0 +1,884 @@
+/* ============================================================
+   ✅ BASE LAYOUT (TON CODE D'ORIGINE – NON MODIFIÉ)
+   ============================================================ */
+
+body {
+    margin: 0;
+    background: #f3f3f3;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #2a2a2a;
+}
+
+header {
+    background: #0078D4;
+    padding: 30px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    border-left: 6px solid #0078D4;
+}
+
+.section h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    color: #0078D4;
+    display: flex;
+    align-items: center;
+}
+
+.section h2 i {
+    margin-right: 10px;
+}
+
+.action-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn.primary {
+    background: #0078D4;
+    color: white;
+}
+
+.btn.secondary {
+    background: #ddd;
+    color: #333;
+}
+
+#clientNameError {
+    color: #c62828;
+    font-weight: bold;
+    display: none;
+    margin-top: 8px;
+}
+
+#stafferNameError {
+    color: #c62828;
+    font-weight: bold;
+    display: none;
+    margin-top: 8px;
+}
+
+.form-input {
+    padding: 10px;
+    width: 100%;
+    max-width: 350px;
+    margin-top: 8px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+    font-size: .9rem;
+}
+
+.section label {
+    display: block;
+    margin-top: 15px;
+}
+
+
+/* ============================================================
+   ✅ TITRES DES COLONNES – OK / WARNING / NOK
+   ============================================================ */
+
+.column-header {
+    display: grid;
+    grid-template-columns: 1fr 90px 90px 90px;
+    padding: 10px 0;
+    font-weight: bold;
+    color: #0078D4;
+    margin-bottom: 10px;
+}
+
+/* CHECK */
+.column-header .col-item {
+    text-align: left;
+    padding-left: 5px;
+}
+
+/* OK */
+.column-header .col-done {
+    text-align: center;
+}
+
+/* WARNING */
+.column-header .col-warning {
+    text-align: center;
+    color: #f9a825;
+    font-size: 1.1rem;
+}
+
+/* NOK */
+.column-header .col-not {
+    text-align: center;
+}
+
+/* ============================================================
+   ✅ CHECK LABEL – TUTO LINK (FLUENT / AZURE STYLE)
+   ============================================================ */
+
+.item-tuto {
+    color: inherit;              
+    text-decoration: none;       
+    cursor: default;             
+    position: relative;
+    transition: color 0.15s ease;
+    user-select: none;
+}
+
+/* Hover discret (découverte) */
+.item-row:hover .item-tuto {
+    color: #0078D4;              
+    cursor: pointer;
+}
+
+/* Indicateur subtil (ligne fine, pas un underline HTML) */
+.item-tuto::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: #0078D4;
+    transition: width 0.2s ease;
+}
+
+.item-row:hover .item-tuto::after {
+    width: 100%;
+}
+
+/* Focus clavier (accessibilité pro) */
+.item-tuto:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0,120,212,0.35);
+    border-radius: 2px;
+}
+
+.item-tuto::before {
+    content: "📚";
+    font-size: 0.9em;
+    margin-right: 6px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.item-row:hover .item-tuto::before {
+    opacity: 0.6;
+}
+
+/* ============================================================
+   ✅ STRUCTURE DES LIGNES / ITEMS
+   ============================================================ */
+
+.checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.item-row {
+    display: grid;
+    grid-template-columns: 1fr 90px 90px 90px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.item-row .choice {
+    display: flex;
+    justify-content: center; /* ✅ centre parfaitement la case dans sa colonne */
+}
+
+.item-label {
+    font-size: 1rem;
+    padding-right: 10px;
+}
+
+
+/* ============================================================
+   ✅ STYLE DES CASES (DONE / NOT DONE / N/A)
+   ============================================================ */
+
+.item-choices {
+    display: contents; /* permet de rester aligné en colonnes */
+}
+
+.choice {
+    display: flex;
+    justify-content: center;
+}
+
+.choice input {
+    display: none;
+}
+
+/* La case visuelle */
+.chk {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #666;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: transparent;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+/* ✅ DONE = VERT */
+.chk.done {
+    border-color: #2e7d3234;
+}
+
+input:checked + .done {
+    background: #2e7d32;
+    border-color: #2e7d32;
+    color: white;
+}
+.done::before {
+    content: "✓";
+}
+
+/* ( ! ) WARNING  */
+.chk.warn {
+    border-color: #f9a82536;
+}
+.chk.warn::before {
+    content: "!";
+}
+
+/* ❌ NOT DONE = ROUGE */
+.chk.notdone {
+    border-color: #c6282827;
+}
+
+input:checked + .notdone {
+    background: #c62828;
+    border-color: #c62828;
+    color: white;
+}
+.notdone::before {
+    content: "✗";
+}
+
+/* ➖ N/A = GRIS */
+input:checked + .na {
+    background: #546e7a;
+    border-color: #546e7a;
+    color: white;
+}
+.na::before {
+    content: "-";
+}
+
+/* Hover pro */
+.chk:hover {
+    border-color: #0078D4;
+}
+
+
+
+/* ACTIVE STATES */
+input:checked + .warn {
+    background: #f9a825;
+    border-color: #f9a825;
+    color: white;
+}
+
+/* scale letter when active */
+input:checked + .chk {
+    font-size: 1.4rem;
+}
+
+/* ============================================================
+   ✅ VIRTUAL MACHINES – REWRITE CLEAN & ALIGNÉ
+   ============================================================ */
+
+.vm-table {
+    margin-top: 15px;
+}
+
+/* ===== GRID COMMUN (HEADER + ROWS) ===== */
+.vm-header,
+.vm-row {
+    display: grid;
+    grid-template-columns: 50px 180px repeat(7, 1fr);
+    align-items: center;
+}
+
+/* ===== HEADER ===== */
+.vm-header {
+    background: #0078D4;
+    color: #fff;
+    font-weight: bold;
+    padding: 12px 0;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* cellules header */
+.vm-header > .vm-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vm-header .vm-col.vm-name {
+    justify-content: flex-start;
+    padding-left: 12px;
+}
+
+/* ===== ROW ===== */
+.vm-row {
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* force TOUTES les cellules row à s’aligner pareil */
+.vm-row > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== ACTIONS ===== */
+.vm-actions {
+    justify-content: center;
+}
+
+.vm-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c62828;
+    cursor: pointer;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.vm-delete:hover {
+    opacity: 1;
+}
+
+/* ===== VM NAME ===== */
+.vm-name {
+    justify-content: flex-start;
+    padding-left: 12px;
+    font-weight: 500;
+}
+
+.vm-name-input {
+    height: 32px;
+    width: 100%;
+    max-width: 160px;
+    padding: 6px 8px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    margin: 0;
+    line-height: normal;
+    vertical-align: middle;
+}
+
+.vm-name-input:focus {
+    outline: none;
+    border-color: #0078D4;
+    box-shadow: 0 0 0 1px rgba(0,120,212,0.4);
+}
+
+/* ===== CELLS (CHECKS) ===== */
+.vm-cells {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.vm-cells input {
+    display: none;
+}
+
+.vm-name-input:invalid {
+    border-color: #c62828;
+    box-shadow: 0 0 0 2px rgba(198,40,40,0.25);
+}
+
+/* ============================================================
+   ✅ BUTTON HOVER – MICROSOFT FLUENT STYLE (2026)
+   ============================================================ */
+
+.btn {
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+/* ===== PRIMARY BUTTON ===== */
+.btn.primary:hover {
+    background: #1084e8; /* bleu Microsoft plus clair */
+    box-shadow: 0 6px 16px rgba(0, 120, 212, 0.35);
+    transform: translateY(-1px);
+}
+
+.btn.primary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 120, 212, 0.3);
+    filter: brightness(0.95);
+}
+
+/* ===== SECONDARY BUTTONS ===== */
+.btn.secondary:hover {
+    background: #e6e6e6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+
+.btn.secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    filter: brightness(0.97);
+}
+
+/* ===== ICON SMOOTH MOVE ===== */
+.btn i {
+    transition: transform 0.2s ease;
+}
+
+.btn:hover i {
+    transform: translateY(-1px);
+    backdrop-filter: blur(2px);
+}
+
+/* ===== ACCESSIBILITY / KEYBOARD ===== */
+.btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,120,212,0.35);
+}
+
+/* ============================================================
+   ✅ ENGINEER COMMENTS – TEXTAREA PROPRE & RÉACTIVE
+   ============================================================ */
+
+
+#comments {
+    width: 100%;
+    height: 200px;
+    resize: vertical;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   ✅ MODE PRINT (PDF)
+   ============================================================ */
+
+@media print {
+
+    body {
+        background: white !important;
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+
+    .action-bar {
+        display: none !important;
+    }
+
+    footer {
+        position: relative;
+        margin-top: 40px;
+    }
+
+    .section {
+        page-break-inside: avoid;
+    }
+
+    #comments {
+        overflow: visible !important;
+        height: auto !important;
+    }
+}
+
+/* ============================================================
+   ✅ DATE – Fluent UI (Microsoft 365 / Windows 11 – 2026)
+   ============================================================ */
+
+/* Wrapper : alignement champ + action secondaire */
+.date-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* === Date input (natif, propre, Fluent) === */
+.date-input {
+    appearance: none;
+    -webkit-appearance: none;
+
+    font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+
+    height: 32px;
+    padding: 0 10px;
+
+    color: #1f1f1f;
+    background-color: #ffffff;
+
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+
+    box-sizing: border-box;
+
+    transition:
+        background-color 120ms ease-out,
+        border-color 120ms ease-out,
+        box-shadow 120ms ease-out;
+}
+
+/* Hover — discret */
+.date-input:hover {
+    background-color: #fafafa;
+    border-color: #b3b3b3;
+}
+
+/* Focus — accent Fluent */
+.date-input:focus {
+    outline: none;
+    border-color: #0f6cbd; /* Microsoft accent blue */
+    box-shadow: 0 0 0 1px rgba(15, 108, 189, 0.9);
+}
+
+/* Disabled — conforme Microsoft */
+.date-input:disabled {
+    background-color: #f3f3f3;
+    color: #9e9e9e;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+}
+
+/* === Bouton Today (secondary command Fluent) === */
+.today-btn {
+    font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+
+    height: 32px;
+    padding: 0 10px;
+
+    color: #0f6cbd;
+    background-color: transparent;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 120ms ease-out,
+        border-color 120ms ease-out;
+}
+
+/* Hover — highlight léger */
+.today-btn:hover {
+    background-color: rgba(15, 108, 189, 0.08);
+    border-color: rgba(15, 108, 189, 0.35);
+}
+
+/* Active — feedback subtil */
+.today-btn:active {
+    background-color: rgba(15, 108, 189, 0.15);
+}
+
+/* ============================================================
+   ✅ VM TEMPLATE HIDDEN
+   ============================================================ */
+
+.vm-template {
+    display: none !important;
+}
+
+/* ============================================================
+   ✅ COMMAND BLOCKS (CMD / POWERSHELL / BASH)
+   ============================================================ */
+
+.code-block{
+    display:inline-flex;
+    align-items:center;
+
+    margin-top:15px;
+    margin-bottom:20px;
+
+    border-radius:10px;
+    overflow:hidden;
+
+    border:1px solid #0f1720;
+    background:#0c0f14;
+
+    max-width:100%;
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* ===== LEFT LABEL ===== */
+
+.code-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 14px;
+
+    background:#111827;
+    border-right:1px solid #1f2937;
+
+    flex-shrink:0;
+}
+
+/* ===== CMD ===== */
+
+.code-language{
+    color:#79c0ff;
+    font-size:13px;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+}
+
+/* ===== COMMAND CONTENT ===== */
+
+.code-content{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:8px 12px;
+
+    background:#0c0f14;
+}
+
+.code-content pre{
+    margin:0;
+
+    color:#e6edf3;
+    font-size:14px;
+    line-height:1.5;
+    font-family:Consolas, "Cascadia Code", monospace;
+
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+/* ===== COPY BUTTON ===== */
+
+.copy-btn{
+    background:#1f6feb;
+    color:white;
+
+    border:none;
+    border-radius:6px;
+
+    padding:6px 12px;
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:600;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+    box-shadow:0 2px 6px rgba(0,0,0,0.25);
+}
+
+.copy-btn:hover{
+    background:#388bfd;
+    transform:translateY(-1px);
+}
+
+.copy-btn:active{
+    transform:translateY(0);
+}
+
+/* ============================================================
+   ✅ POWERSHELL COLORS
+   ============================================================ */
+
+/* Commandlets / executable */
+.ps-command{
+    color:#4fc1ff;
+}
+
+/* Variables */
+.ps-variable{
+    color:#ffb86b;
+}
+
+/* Properties / parameters */
+.ps-property{
+    color:#c792ea;
+}
+
+/* Numbers / IP / ports */
+.ps-number{
+    color:#79c0ff;
+}
+
+/* Strings */
+.ps-string{
+    color:#98ec65;
+}
+
+/* Operators / symbols */
+.ps-operator{
+    color:#e6edf3;
+}
+
+/* Comments */
+.ps-comment{
+    color:#6a9955;
+    font-style:italic;
+}
+
+/* ============================================================
+   ✅ INLINE SMALL BLOCKS
+   ============================================================ */
+
+.code-inline{
+    display:inline-flex;
+    align-items:center;
+}
+
+/* ============================================================
+   ✅ LINK BLOCK
+   ============================================================ */
+
+.link-block{
+    display:inline-flex;
+    align-items:center;
+
+    margin-top:15px;
+
+    border-radius:10px;
+    overflow:hidden;
+
+    border:1px solid #0f1720;
+    background:#0c0f14;
+
+    max-width:100%;
+}
+
+.link-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 14px;
+
+    background:#111827;
+    border-right:1px solid #1f2937;
+
+    color:#79c0ff;
+    font-size:13px;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+}
+
+.link-content{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:8px 12px;
+}
+
+.link-content pre{
+    margin:0;
+
+    color:#e6edf3;
+    font-size:14px;
+    line-height:1.5;
+    font-family:Consolas, "Cascadia Code", monospace;
+
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+/* ============================================================
+   ✅ Engineer Comments
+   ============================================================ */
+
+.comments-box {
+    width: 100%;
+    min-height: 250px;
+    height: auto;
+
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+
+    padding: 15px;
+
+    background: white;
+
+    font-family: Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}

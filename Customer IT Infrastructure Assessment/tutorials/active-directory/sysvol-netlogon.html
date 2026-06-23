@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – SYSVOL & NETLOGON</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>SYSVOL & NETLOGON</h1>
+
+    <p class="subtitle">
+        Tutorial – Active Directory Health Check
+    </p>
+
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-bullseye"></i>
+            Objective
+        </h2>
+
+        <p>
+            This check verifies that
+            <strong>SYSVOL and NETLOGON</strong>
+            are available and correctly replicated across Domain Controllers.
+        </p>
+
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-list-check"></i>
+            Prerequisites
+        </h2>
+
+        <ul>
+            <li>Access to a <strong>Domain Controller</strong></li>
+            <li>Administrator permissions</li>
+        </ul>
+
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-1"></i>
+            Verify SYSVOL & NETLOGON Shares
+        </h2>
+
+        <p>
+            Open Command Prompt and run:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+                <pre><span class="ps-command">net</span> <span class="ps-operator">share</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>SYSVOL share is present</li>
+            <li>NETLOGON share is present</li>
+            <li>No missing or inaccessible shares</li>
+        </ul>
+
+        <img src="../../assets/sysvol-netlogon/step1-shares.png"
+             alt="SYSVOL and NETLOGON shares"
+             style="width:100%; max-width:700px; border-radius:8px; margin-top:20px;">
+
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-2"></i>
+            Check DFSR Status
+        </h2>
+
+        <p>
+            Run:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+
+                <span class="code-language">
+                    CMD
+                </span>
+
+            </div>
+
+            <div class="code-content">
+
+                <pre><span class="ps-command">wmic</span> <span class="ps-operator">/namespace:\\root\microsoftdfs</span> <span class="ps-operator">path</span> <span class="ps-operator">dfsrreplicatedfolderinfo</span> <span class="ps-operator">get</span> <span class="ps-property">replicatedfoldername,state</span></pre>
+
+                <button class="copy-btn" onclick="copyCode(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>SYSVOL state is <strong>4 (Normal)</strong></li>
+            <li>No replicated folder is in error state</li>
+            <li>No state 5 (Error) is displayed</li>
+        </ul>
+
+        <img src="../../assets/sysvol-netlogon/step2-dfsr.png"
+             alt="DFSR replication state"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:20px;">
+
+    </div>
+
+    <!-- RESULT -->
+    <div class="section">
+
+        <h2>
+            <i class="fa-solid fa-circle-info"></i>
+            Result Interpretation
+        </h2>
+
+        <ul>
+
+            <li>
+                ✅ <strong>OK</strong> –
+                SYSVOL and NETLOGON are available and DFSR replication is healthy.
+            </li>
+
+            <li>
+                ⚠️ <strong>WARNING</strong> –
+                Minor DFSR delays or replication inconsistencies detected.
+            </li>
+
+            <li>
+                ❌ <strong>NOK</strong> –
+                Missing shares or DFSR replication failures detected.
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+
+        <img src="../../assets/orbid.png"
+             alt="Logo"
+             style="height:70px;">
+
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+
+    </div>
+
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

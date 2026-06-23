@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – NTFS Permissions</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>NTFS Permissions</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>NTFS permissions are correctly configured</strong>
+            on shared folders.
+        </p>
+
+        <p>
+            Incorrect permissions can lead to:
+        </p>
+
+        <ul>
+            <li>Unauthorized access</li>
+            <li>Data modification or deletion</li>
+            <li>Privilege escalation</li>
+            <li>Security risks</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+            <li>File Explorer access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify NTFS Permissions</h2>
+
+        <p>
+            On the File Server:
+        </p>
+
+        <ul>
+            <li>Right-click the shared folder</li>
+            <li>Select <strong>Properties</strong></li>
+            <li>Open the <strong>Security</strong> tab</li>
+        </ul>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Permissions are assigned to groups instead of individual users</li>
+            <li>No unnecessary <strong>Full Control</strong> permissions exist</li>
+            <li>No suspicious or unknown accounts are present</li>
+        </ul>
+
+        <ul>
+            <li>✅ Permissions correctly configured = OK</li>
+            <li>⚠️ Excessive permissions detected = WARNING</li>
+            <li>❌ Unauthorized or insecure permissions detected = NOK</li>
+        </ul>
+
+        <img src="../../assets/file-server-ntfs/step1-security-tab.png"
+             alt="NTFS permissions verification"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – NTFS permissions correctly configured.</li>
+            <li>⚠️ <strong>WARNING</strong> – Excessive or inconsistent permissions detected.</li>
+            <li>❌ <strong>NOK</strong> – Unauthorized or insecure NTFS permissions present.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

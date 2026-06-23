@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Restore Test</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Restore Test</h1>
+    <p class="subtitle">Tutorial – Backup & Disaster Recovery</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>backup restore operations are functional</strong>.
+        </p>
+
+        <p>
+            A successful backup does not guarantee that data can actually be restored.
+        </p>
+
+        <p>
+            Restore issues can impact:
+        </p>
+
+        <ul>
+            <li>Disaster recovery</li>
+            <li>Business continuity</li>
+            <li>Data availability</li>
+            <li>Recovery operations</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>backup console</strong></li>
+            <li>User account with <strong>restore permissions</strong></li>
+            <li>Available restore point</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Start a Restore Test</h2>
+
+        <p>
+            Open the backup console and navigate to:
+        </p>
+
+        <p>
+            <strong>Home → Backups → Disk</strong>
+        </p>
+
+        <p>
+            Select a backup and start a restore operation.
+        </p>
+
+        <img src="../../assets/restore-test/step1-restore-start.png"
+             alt="Start restore test"
+             style="width:100%; max-width:600px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Verify Restore Access</h2>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Restore points are accessible</li>
+            <li>The restore wizard opens correctly</li>
+            <li>No restore errors are displayed</li>
+        </ul>
+
+        <img src="../../assets/restore-test/step2-restore-verify.png"
+             alt="Verify restore test"
+             style="width:100%; max-width:600px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Restore operation can be started successfully.</li>
+            <li>⚠️ <strong>WARNING</strong> – Restore operation partially works or shows warnings.</li>
+            <li>❌ <strong>NOK</strong> – Restore operation fails or restore points are inaccessible.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

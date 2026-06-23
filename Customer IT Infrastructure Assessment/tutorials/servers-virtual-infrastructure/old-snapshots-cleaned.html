@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – VM Snapshots</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>VM Snapshots</h1>
+    <p class="subtitle">Tutorial – VMware vSphere Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+<div class="section">
+    <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+    <p>
+        This check verifies the <strong>presence and age of virtual machine snapshots</strong>.
+        It aims to identify outdated or unnecessary snapshots that could impact
+        performance, storage consumption, or data integrity.
+    </p>
+    <p>
+        This is a <strong>verification-only control</strong>.
+        No snapshot deletion or cleanup is performed as part of this check.
+    </p>
+</div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i>Open Snapshots View</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong>, select a virtual machine,
+            and open the <strong>Snapshots</strong> tab.
+        </p>
+
+        <p>
+            Review the list of existing snapshots for the selected VM.
+        </p>
+
+        <img src="../../assets/old-snapshots-cleaned/step2.png"
+             alt="VM snapshot overview"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-3"></i>Validate Snapshot Age</h2>
+        <p>
+            Ensure that no old or unexpected snapshots are present.
+        </p>
+
+        <ul>
+            <li>No snapshots older than a few days (unless justified)</li>
+            <li>No forgotten or abandoned snapshots</li>
+            <li>Snapshot usage aligned with backup or maintenance operations</li>
+        </ul>
+
+        <p>
+            Extended snapshot retention should always be documented and justified.
+        </p>
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>✅ <strong>OK</strong> – No old or unnecessary snapshots present</li>
+            <li>⚠️ <strong>WARNING</strong> – Old snapshots found but justified or scheduled for cleanup</li>
+            <li>❌ <strong>NOK</strong> – Old snapshots present without justification</li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>
+``

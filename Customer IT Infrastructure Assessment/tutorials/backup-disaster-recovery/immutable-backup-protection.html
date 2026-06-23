@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Immutable Backup Protection</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Immutable Backup Protection</h1>
+    <p class="subtitle">Tutorial – Backup & Disaster Recovery</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>backup data is protected against modification or deletion</strong>.
+        </p>
+
+        <p>
+            Missing immutable protection can expose backups to:
+        </p>
+
+        <ul>
+            <li>Ransomware attacks</li>
+            <li>Malicious deletion</li>
+            <li>Accidental modification</li>
+            <li>Backup corruption</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>backup console</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Immutable Repository</h2>
+
+        <p>
+            Open the backup console and navigate to:
+        </p>
+
+        <p>
+            <strong>Backup Infrastructure → Backup Repositories</strong>
+        </p>
+
+        <p>
+            Open the repository properties and verify that:
+        </p>
+
+        <ul>
+            <li>Immutable backups are enabled</li>
+            <li>An immutability retention period is configured</li>
+            <li>The repository supports immutable storage</li>
+        </ul>
+
+        <img src="../../assets/immutable-backup-protection/step1-immutable-repository.png"
+             alt="Immutable backup repository"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Verify Immutable Backup Usage</h2>
+
+        <p>
+            Verify that critical backup jobs use the immutable repository.
+        </p>
+
+        <ul>
+            <li>Production backups should target immutable storage whenever possible</li>
+            <li>Immutable repositories should be operational and accessible</li>
+        </ul>
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Immutable backup protection is enabled and operational.</li>
+
+            <li>⚠️ <strong>WARNING</strong> – Immutable protection exists but is partially configured or not used for all critical backups.</li>
+
+            <li>❌ <strong>NOK</strong> – No immutable backup protection is configured.</li>
+        </ul>
+
+        <p>
+            <strong>Immutable backup protection is considered a critical ransomware protection requirement.</strong>
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

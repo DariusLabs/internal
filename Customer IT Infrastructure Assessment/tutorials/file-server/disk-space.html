@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Disk Space</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Disk Space</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies the <strong>available disk space percentage</strong>
+            on the File Server.
+        </p>
+
+        <p>
+            Low disk space can impact:
+        </p>
+
+        <ul>
+            <li>File access</li>
+            <li>Application performance</li>
+            <li>Backups</li>
+            <li>Server stability</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+            <li>PowerShell access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Free Disk Space</h2>
+
+        <p>
+            Open PowerShell on the File Server and run:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">PowerShell</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-content">
+<pre><span class="ps-command">Get-Volume</span> | Select DriveLetter,
+@{Name=<span class="ps-string">"FreeSpace(%)"</span>;Expression={[math]::round((<span class="ps-variable">$_.</span><span class="ps-property">SizeRemaining</span> / <span class="ps-variable">$_.</span><span class="ps-property">Size</span>) * <span class="ps-number">100</span>,<span class="ps-number">2</span>)}}</pre>
+            </div>
+
+        </div>
+
+        <p>
+            Verify the remaining free space percentage for each volume.
+        </p>
+
+        <ul>
+            <li>✅ More than 20% free space = OK</li>
+            <li>⚠️ Between 10% and 20% free space = WARNING</li>
+            <li>❌ Less than 10% free space = Critical</li>
+        </ul>
+
+        <p>
+            Pay particular attention to:
+        </p>
+
+        <ul>
+            <li>File shares volumes</li>
+            <li>Backup volumes</li>
+            <li>System drive (C:)</li>
+        </ul>
+
+        <img src="../../assets/file-server-disk-space/step1-disk-space.png"
+             alt="Disk space verification"
+             style="width:100%; max-width:800px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Sufficient free space available on all volumes.</li>
+            <li>⚠️ <strong>WARNING</strong> – One or more volumes are approaching capacity.</li>
+            <li>❌ <strong>NOK</strong> – Critical free space shortage detected.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

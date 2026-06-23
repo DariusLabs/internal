@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Antivirus Exclusions</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Antivirus Exclusions</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that the <strong>antivirus is installed and properly configured</strong>
+            on the File Server.
+        </p>
+
+        <p>
+            Incorrect antivirus configuration or missing exclusions can cause:
+        </p>
+
+        <ul>
+            <li>Slow file access</li>
+            <li>Locked files</li>
+            <li>Backup failures</li>
+            <li>Application instability</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>admin permissions</strong></li>
+            <li>Access to the antivirus console</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Antivirus Exclusions</h2>
+
+        <p>
+            Open the antivirus console on the File Server.
+        </p>
+
+        <p>
+            Navigate to:
+        </p>
+
+        <ul>
+            <li><strong>Configuration</strong></li>
+            <li><strong>Server</strong></li>
+        </ul>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>The antivirus protection is active</li>
+            <li><strong>Automatic exclusions</strong> are enabled</li>
+            <li>No critical warning or protection issue is displayed</li>
+        </ul>
+
+        <p>
+            Automatic exclusions help prevent performance issues
+            and file access problems on the File Server.
+        </p>
+
+        <img src="../../assets/file-server-antivirus/step1-eset-exclusions.png"
+             alt="Antivirus exclusions verification"
+             style="width:100%; max-width:500px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Antivirus active and automatic exclusions enabled.</li>
+            <li>⚠️ <strong>WARNING</strong> – Antivirus installed but exclusions disabled or incomplete.</li>
+            <li>❌ <strong>NOK</strong> – Antivirus missing or protection disabled.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

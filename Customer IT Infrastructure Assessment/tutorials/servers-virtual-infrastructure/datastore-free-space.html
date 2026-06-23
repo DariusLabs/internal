@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Datastore Free Space</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Datastore Free Space</h1>
+    <p class="subtitle">Tutorial – VMware vSphere Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+        <p>
+            This check verifies the <strong>available free space status</strong> of all datastores.
+            Adequate free space is important to maintain VM performance, allow snapshots,
+            and safely perform maintenance operations.
+        </p>
+
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../../assets/esxi-vm-alerts/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i>Open Datastore View</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong>, then navigate to
+            <strong>Inventory</strong> and select <strong>Datastores</strong>.
+        </p>
+
+        <img src="../../assets/datastore-free-space/step2.png"
+             alt="Datastore view"
+             style="width:100%; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-3"></i>Review Free Space</h2>
+        <p>
+            Review the free space available on each datastore.
+        </p>
+
+        <ul>
+            <li>Sufficient free space available (according to internal policy)</li>
+            <li>No datastore close to full capacity</li>
+            <li>No active datastore-related alerts</li>
+        </ul>
+
+        <p>
+            As a general best practice, datastores typically maintain at least
+            <strong>20–25%</strong> free space.
+            This value is provided as guidance and does not represent a mandatory requirement.
+        </p>
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – Datastore free space reviewed. No critical capacity issues detected.
+            </li>
+            <li>
+                ⚠️ <strong>WARNING</strong> – One or more datastores below recommended threshold
+            </li>
+            <li>
+                ❌ <strong>NOK</strong> – Datastore critically full or at risk of outage
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

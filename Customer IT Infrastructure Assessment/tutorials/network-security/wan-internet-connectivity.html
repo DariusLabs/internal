@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – WAN / Internet Connectivity</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>WAN / Internet Connectivity</h1>
+    <p class="subtitle">Tutorial – Network / Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that the server or workstation
+            can successfully access external internet resources.
+        </p>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to a Windows server or workstation</li>
+            <li>Command Prompt access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Internet Connectivity Path</h2>
+
+        <p>
+            Open Command Prompt and run:
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-terminal"></i>
+                CMD
+            </div>
+
+            <div class="link-content">
+
+<pre>tracert google.be</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>The trace successfully reaches external hosts</li>
+            <li>No major packet loss or timeout occurs</li>
+            <li>Internet routing is operational</li>
+        </ul>
+
+        <img src="../../assets/wan-internet-connectivity/step1-tracert.png"
+             alt="Internet connectivity using tracert"
+             style="width:100%; max-width:700px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – Internet connectivity and WAN routing are operational.
+            </li>
+
+            <li>
+                ⚠️ <strong>WARNING</strong> – Slow routing, latency, or intermittent connectivity detected.
+            </li>
+
+            <li>
+                ❌ <strong>NOK</strong> – No internet connectivity or routing failure detected.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

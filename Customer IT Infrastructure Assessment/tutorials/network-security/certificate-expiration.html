@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – SSL Certificate Expiration</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>SSL Certificate Expiration</h1>
+    <p class="subtitle">Tutorial – Network / Security</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that the SSL/TLS certificate used by a website
+            or service is valid, trusted and not expired.
+        </p>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to a Windows server or workstation</li>
+            <li>Internet access</li>
+            <li>PowerShell access</li>
+            <li>HTTPS URL to test</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify SSL Certificate Accessibility</h2>
+
+        <p>
+            Open PowerShell and run:
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-terminal"></i>
+                PowerShell
+            </div>
+
+            <div class="link-content">
+
+<pre>Invoke-WebRequest https://your-domain.com</pre>
+
+                <button class="copy-btn" onclick="copyLink(this)">
+                    Copy
+                </button>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            Verify that:
+        </p>
+
+        <ul>
+            <li>The HTTPS website is accessible</li>
+            <li>StatusCode returns 200</li>
+            <li>StatusDescription returns OK</li>
+            <li>No SSL or certificate warning appears</li>
+            <li>The certificate is trusted and valid</li>
+        </ul>
+
+        <img src="../../assets/certificate-expiration/step1-ssl-check.png"
+             alt="PowerShell SSL certificate verification"
+             style="width:100%; max-width:1000px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- EXPECTED RESULT -->
+    <div class="section">
+        <h2><i class="fa-solid fa-check"></i> Expected Result</h2>
+
+        <p>
+            A valid SSL/TLS certificate should return:
+        </p>
+
+        <div class="link-block">
+
+            <div class="link-label">
+                <i class="fa-solid fa-square-check"></i>
+                Result
+            </div>
+
+            <div class="link-content">
+
+<pre>StatusCode        : 200
+StatusDescription : OK</pre>
+
+            </div>
+
+        </div>
+
+        <p style="margin-top:20px;">
+            This confirms that:
+        </p>
+
+        <ul>
+            <li>The website is reachable over HTTPS</li>
+            <li>The SSL certificate is valid</li>
+            <li>The certificate is trusted by Windows</li>
+            <li>No SSL expiration issue is detected</li>
+        </ul>
+    </div>
+
+    <!-- COMMON TARGETS -->
+    <div class="section">
+        <h2><i class="fa-solid fa-server"></i> Common Targets</h2>
+
+        <ul>
+            <li>VPN portal</li>
+            <li>OWA / Exchange</li>
+            <li>RDS Gateway</li>
+            <li>Client web portal</li>
+            <li>Public website</li>
+        </ul>
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>
+                ✅ <strong>OK</strong> – SSL certificate is valid and trusted.
+            </li>
+
+            <li>
+                ⚠️ <strong>WARNING</strong> – Certificate expiration is approaching or minor SSL issues detected.
+            </li>
+
+            <li>
+                ❌ <strong>NOK</strong> – Certificate expired, invalid, or HTTPS access failed.
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

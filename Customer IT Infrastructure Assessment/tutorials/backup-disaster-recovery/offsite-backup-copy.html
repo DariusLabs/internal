@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Offsite Backup Copy</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Offsite Backup Copy</h1>
+    <p class="subtitle">Tutorial – Backup & Disaster Recovery</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>backup copies are replicated to an offsite location</strong>.
+        </p>
+
+        <p>
+            Missing offsite backups can impact:
+        </p>
+
+        <ul>
+            <li>Disaster recovery</li>
+            <li>Ransomware resilience</li>
+            <li>Data redundancy</li>
+            <li>Business continuity</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>backup console</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Backup Copy Jobs</h2>
+
+        <p>
+            Open the backup console and navigate to:
+        </p>
+
+        <p>
+            <strong>Home → Jobs → Backup Copy</strong>
+        </p>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Backup copy jobs are present</li>
+            <li>Jobs are enabled</li>
+            <li>Last runs are successful</li>
+        </ul>
+
+        <img src="../../assets/offsite-backup-copy/step1-backup-copy-jobs.png"
+             alt="Backup copy jobs"
+             style="width:100%; max-width:800px; border-radius:8px; margin-top:15px;">
+    </div>
+
+   <!-- STEP 2 -->
+<div class="section">
+    <h2><i class="fa-solid fa-2"></i> Verify Offsite Destination</h2>
+
+    <p>
+        Select the backup copy job and verify the target repository.
+    </p>
+
+    <p>
+        Verify that:
+    </p>
+
+    <ul>
+        <li>The target is different from the primary backup repository</li>
+        <li>The destination is remote, cloud-based, or on a secondary site</li>
+        <li>The backup copy job completes successfully</li>
+    </ul>
+</div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Offsite backup copies are configured and operational.</li>
+            <li>⚠️ <strong>WARNING</strong> – Backup copy jobs show warnings or outdated copies.</li>
+            <li>❌ <strong>NOK</strong> – No offsite backup copy configured or jobs failing.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

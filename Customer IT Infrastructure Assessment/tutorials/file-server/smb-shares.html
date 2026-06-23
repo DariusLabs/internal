@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – SMB Shares</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>SMB Shares</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>SMB shares are present and accessible</strong>
+            on the File Server.
+        </p>
+
+        <p>
+            Incorrectly configured shares can impact:
+        </p>
+
+        <ul>
+            <li>User access</li>
+            <li>Applications</li>
+            <li>Shared data availability</li>
+            <li>Business operations</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+            <li>PowerShell access</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify SMB Shares</h2>
+
+        <p>
+            Open PowerShell on the File Server and run:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">PowerShell</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-content">
+<pre><span class="ps-command">Get-SmbShare</span></pre>
+            </div>
+
+        </div>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Expected shares are listed</li>
+            <li>Share paths are valid</li>
+            <li>No obsolete or suspicious shares are present</li>
+        </ul>
+
+        <img src="../../assets/file-server-smb/step1-list-shares.png"
+             alt="SMB shares list"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-2"></i> Verify Share Accessibility</h2>
+
+        <p>
+            Open File Explorer and access the File Server shares:
+        </p>
+
+        <div class="code-block">
+
+            <div class="code-header">
+                <span class="code-language">Explorer</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-content">
+<pre>\\ROE-vFS01</pre>
+            </div>
+
+        </div>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Shares are visible</li>
+            <li>Shares open without errors</li>
+            <li>Shared folders are accessible</li>
+        </ul>
+
+        <ul>
+            <li>✅ Shares accessible = OK</li>
+            <li>⚠️ Missing or unused shares detected = WARNING</li>
+            <li>❌ Shares inaccessible or unavailable = NOK</li>
+        </ul>
+
+        <img src="../../assets/file-server-smb/step2-share-access.png"
+             alt="SMB share accessibility"
+             style="width:100%; max-width:600px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – SMB shares correctly configured and accessible.</li>
+            <li>⚠️ <strong>WARNING</strong> – Missing or suspicious shares detected.</li>
+            <li>❌ <strong>NOK</strong> – SMB shares inaccessible or misconfigured.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

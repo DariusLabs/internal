@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – vSphere HA / Cluster Health</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>vSphere HA / Cluster Health</h1>
+    <p class="subtitle">Tutorial – VMware Cluster Checklist Verification</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+<div class="section">
+    <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+    <p>
+        This check verifies the <strong>vSphere environment health</strong> with regard to
+        <strong>High Availability (HA)</strong>.
+    </p>
+    <p>
+        The purpose is to <strong>confirm whether a vSphere cluster is present</strong> and
+        whether <strong>vSphere HA is enabled, disabled, or not applicable</strong>.
+        This is a <strong>verification-only control</strong>.
+    </p>
+    <p>
+        <strong>No configuration or remediation is required.</strong>
+        The checklist item may be validated even if <strong>no cluster is configured</strong>
+        or if <strong>vSphere HA is disabled</strong>, as long as this state has been reviewed.
+    </p>
+</div>
+
+     <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+        <ul>
+            <li>Access to <strong>vSphere Client</strong></li>
+            <li>Read or monitoring permissions</li>
+            <li>Access to ESXi hosts and virtual machines</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Open vSphere Client</h2>
+        <p>
+            Log in to the <strong>vSphere Web Client</strong> using a web browser.
+            Access the vCenter instance via its <strong>IP address or FQDN</strong>.
+        </p>
+
+        <img src="../assets/ha-cluster-health/step1.png"
+             alt="vSphere login screen"
+             style="width:100%; max-width:350px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- STEP 2 -->
+<div class="section">
+    <h2><i class="fa-solid fa-2"></i> Check Cluster Health and HA Status</h2>
+
+    <p>
+        Navigate to the vSphere inventory and review the High Availability (HA)
+        and environment health status.
+    </p>
+
+    <ul>
+        <li><strong>Inventory</strong> → <strong>Hosts and Clusters</strong></li>
+        <li>
+            If a <strong>cluster is present</strong>, select the <strong>cluster</strong>
+            and open the <strong>Summary</strong> or <strong>Monitor</strong> tab
+        </li>
+        <li>
+            Review the <strong>Cluster Health</strong> indicators and the
+            <strong>vSphere HA status</strong>
+        </li>
+    </ul>
+
+    <p>
+        If <strong>no cluster is present</strong> and hosts are running in
+        <strong>standalone mode</strong>, vSphere HA is
+        <strong>not applicable</strong>.
+        This state must be verified and documented.
+    </p>
+
+    <p>
+        Confirm that the health information is visible and note whether
+        <strong>vSphere HA is enabled, disabled, or not applicable</strong>.
+    </p>
+
+    <img src="../assets/ha-cluster-health/step2.png"
+         alt="vSphere environment health and HA status"
+         style="width:100%; border-radius:8px; margin-top:15px;">
+</div>
+
+    <!-- RESULT INTERPRETATION -->
+<div class="section">
+    <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+    <ul>
+        <li>
+            ✅ <strong>OK</strong> – Environment verified.
+            vSphere HA enabled, disabled,
+            or <strong>not applicable (no cluster)</strong>.
+        </li>
+        <li>
+            ℹ️ <strong>Information</strong> – vSphere HA disabled by design.
+            No action required.
+        </li>
+        <li>
+            ⚠️ <strong>Warning</strong> – Cluster health shows degraded or warning
+            states.
+        </li>
+        <li>
+            ❌ <strong>NOK</strong> – Cluster not accessible or health status cannot be
+            reviewed.
+        </li>
+    </ul>
+
+    <p>
+        <strong>Note:</strong> This checklist item validates that the environment
+        has been reviewed. It does <strong>not</strong> require a cluster or
+        vSphere HA to be enabled.
+    </p>
+</div>
+
+
+</div> <!-- END CONTAINER -->
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+</body>
+</html>

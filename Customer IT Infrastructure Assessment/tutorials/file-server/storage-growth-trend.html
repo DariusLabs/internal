@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Storage Growth Trend</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Storage Growth Trend</h1>
+    <p class="subtitle">Tutorial – File Server Health Check</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies the <strong>storage growth trend</strong>
+            on the File Server.
+        </p>
+
+        <p>
+            Monitoring storage growth helps anticipate:
+        </p>
+
+        <ul>
+            <li>Disk saturation</li>
+            <li>Unexpected storage consumption</li>
+            <li>Future storage expansion needs</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>File Server</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+            <li>Access to disk usage monitoring or historical data</li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify Storage Usage Trend</h2>
+
+        <p>
+            Compare current disk usage with previous measurements
+            or monitoring data.
+        </p>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>Disk usage growth remains stable</li>
+            <li>No abnormal increase is detected</li>
+            <li>Sufficient free space remains available</li>
+        </ul>
+
+        <p>
+            Pay particular attention to:
+        </p>
+
+        <ul>
+            <li>File shares volumes</li>
+            <li>Backup volumes</li>
+            <li>User profiles folders</li>
+        </ul>
+
+        <img src="../../assets/file-server-storage-growth/step1-storage-growth.png"
+             alt="Storage growth trend verification"
+             style="width:100%; max-width:800px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+        <ul>
+            <li>✅ <strong>OK</strong> – Storage growth stable and under control.</li>
+            <li>⚠️ <strong>WARNING</strong> – Rapid storage growth observed.</li>
+            <li>❌ <strong>NOK</strong> – Storage capacity critically low or saturation imminent.</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>

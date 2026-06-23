@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial – Veeam License Status</title>
+
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Veeam License Status</h1>
+    <p class="subtitle">Tutorial – Backup & Disaster Recovery</p>
+</header>
+
+<div class="container">
+
+    <!-- OBJECTIVE -->
+    <div class="section">
+        <h2><i class="fa-solid fa-bullseye"></i> Objective</h2>
+
+        <p>
+            This check verifies that <strong>the Veeam license is valid and not expired</strong>.
+        </p>
+
+        <p>
+            An expired license may impact:
+        </p>
+
+        <ul>
+            <li>Backup operations</li>
+            <li>Support eligibility</li>
+            <li>Product updates</li>
+            <li>Advanced backup features</li>
+        </ul>
+    </div>
+
+    <!-- PREREQUISITES -->
+    <div class="section">
+        <h2><i class="fa-solid fa-list-check"></i> Prerequisites</h2>
+
+        <ul>
+            <li>Access to the <strong>backup console</strong></li>
+            <li>User account with <strong>read or admin permissions</strong></li>
+        </ul>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="section">
+        <h2><i class="fa-solid fa-1"></i> Verify License Status</h2>
+
+        <p>
+            Open the backup console and navigate to:
+        </p>
+
+        <p>
+            <strong>Main Menu → License</strong>
+        </p>
+
+        <p>
+            Verify that:
+        </p>
+
+        <ul>
+            <li>The license is active</li>
+            <li>The expiration date is valid</li>
+            <li>No license warning is displayed</li>
+        </ul>
+
+        <img src="../../assets/veeam-license-status/step1-license-status.png"
+             alt="Veeam license status"
+             style="width:100%; max-width:400px; border-radius:8px; margin-top:15px;">
+    </div>
+
+    <!-- RESULT INTERPRETATION -->
+<div class="section">
+    <h2><i class="fa-solid fa-circle-info"></i> Result Interpretation</h2>
+
+    <ul>
+        <li>✅ <strong>OK</strong> – License valid for more than 30 days.</li>
+
+        <li>⚠️ <strong>WARNING</strong> – License expires within 30 days.</li>
+
+        <li>❌ <strong>NOK</strong> – License expired or invalid.</li>
+    </ul>
+</div>
+
+<footer>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px;">
+        <img src="../../assets/orbid.png" alt="Logo" style="height:70px;">
+        <span>
+            FlexStaffer Audit Tool<br>
+            © Created by Jasha Eslahi
+        </span>
+    </div>
+</footer>
+
+<script src="../../copy.js"></script>
+
+</body>
+</html>
